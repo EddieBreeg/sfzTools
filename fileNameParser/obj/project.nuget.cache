@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YxdsaUCsMrMZCVjb9v8TsGlmYuXk+TFUIEIlFbawJbEBr86G83LgydP/nc4bA0KjzuJO8+9cCxLWyuNrLVk6hQ==",
+  "dgSpecHash": "cRpUnw9u/gTv3YWCRuDlJkf4vP/TBufPrMC66RQHw57YVI5HYCflyRqKUYjygvr4xk5YDPUJsnKIwre1Ot2pmA==",
   "success": true,
-  "projectFilePath": "E:\\Progra\\c#\\fileNameParser\\fileNameParser.csproj",
+  "projectFilePath": "E:\\Progra\\C#\\sfzTools\\fileNameParser\\fileNameParser.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Progra\\c#\\fileNameParser\\fileNameParser.csproj",
+      "projectUniqueName": "E:\\Progra\\C#\\sfzTools\\fileNameParser\\fileNameParser.csproj",
       "projectName": "fileNameParser",
-      "projectPath": "E:\\Progra\\c#\\fileNameParser\\fileNameParser.csproj",
+      "projectPath": "E:\\Progra\\C#\\sfzTools\\fileNameParser\\fileNameParser.csproj",
       "packagesPath": "C:\\Users\\mael3\\.nuget\\packages\\",
-      "outputPath": "E:\\Progra\\c#\\fileNameParser\\obj\\",
+      "outputPath": "E:\\Progra\\C#\\sfzTools\\fileNameParser\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mael3\\AppData\\Roaming\\NuGet\\NuGet.Config",
