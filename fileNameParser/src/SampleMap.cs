@@ -4,7 +4,11 @@ using System.IO;
 using System.Linq;
 using filenameParser.Extensions;
 
+<<<<<<< HEAD
 namespace filenameParser.SampleMap
+=======
+namespace filenameParser
+>>>>>>> 4e4e0a43b961231b4760d9c949878cf7644f2556
 {
 
     public class Map
@@ -78,7 +82,7 @@ namespace filenameParser.SampleMap
     {
         public List<Region> Regions { get; } = new List<Region>();
         public readonly string name;
-        public SampleGroup(string name) { this.name = name; }
+        public SampleGroup(string name) => this.name = name;
         public SampleGroup(string name, Region region)
         {
             this.name = name;
@@ -87,7 +91,7 @@ namespace filenameParser.SampleMap
 #if (DEBUG)
         public override string ToString() => name;
 #endif
-        public void SortRegions() { Regions.Sort(); }
+        public void SortRegions() => Regions.Sort();
       
         public string Render()
         {
@@ -106,8 +110,13 @@ namespace filenameParser.SampleMap
 
         public Region(string file, string root)
         {
+<<<<<<< HEAD
             var m = new Map();
             var midiNotes = m.MidiNotes.ToList();
+=======
+            var map = new SampleMap();
+            var midiNotes = map.MidiNotes.ToList();
+>>>>>>> 4e4e0a43b961231b4760d9c949878cf7644f2556
             _file = file;
             _root = root;
             midiNumber = midiNotes.IndexOf(root);

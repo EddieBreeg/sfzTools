@@ -1,11 +1,17 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+<<<<<<< HEAD
 using Parser;
 using filenameParser.SampleMap;
 using System.Collections.Generic;
 
 namespace fileNameParser
+=======
+using System.Collections.Generic;
+
+namespace filenameParser
+>>>>>>> 4e4e0a43b961231b4760d9c949878cf7644f2556
 {
     public class Program
     {
@@ -19,8 +25,8 @@ namespace fileNameParser
                 Console.Write("Path: ");
                 rootPath = Console.ReadLine()?.Replace("\"", "");
             }
-            string[] extensions = { "wav", "mp3", "flac", "ogg" };
-            var ext = LineInput("File extension(default is wav): ", extensions, "wav");
+            
+            var ext = InputHandler.LineInput("File extension(default is wav): ", new []{ "wav", "mp3", "flac", "ogg" }, "wav");
             var files = new List<string>();
             foreach (var file in Directory.GetFiles(rootPath, "*", SearchOption.AllDirectories))
             {
@@ -54,7 +60,7 @@ namespace fileNameParser
 
             for(int i = 0; i < lut.Length; i++)
             {
-                lut[i] = KeyInput($"{firstFile[i]} (default is {lut[i]}): ", "01234", lut[i]);
+                lut[i] = InputHandler.KeyInput($"{firstFile[i]} (default is {lut[i]}): ", new []{'0', '1', '2'}, lut[i]);
                 Console.Write("\n");
             }
 #if DEBUG
@@ -104,7 +110,7 @@ namespace fileNameParser
             Console.WriteLine("1 = stretch down");
             Console.WriteLine("2 = stretch up\n");
 
-            var stretchMode = KeyInput("Please specify the stretch mode (default is 1): ", "012", '1');
+            var stretchMode = InputHandler.KeyInput("Please specify the stretch mode (default is 1): ", new []{'0', '1', '2'}, '1');
 #if (DEBUG)
             Console.WriteLine(stretchMode);
 #endif
@@ -117,6 +123,7 @@ namespace fileNameParser
             Console.WriteLine($"{outputPath} successfully created!");
             Console.ReadKey();
         }
+<<<<<<< HEAD
 
         public static char KeyInput(string str, string choices, char defaultValue)
         {
@@ -148,5 +155,7 @@ namespace fileNameParser
                 return defaultValue;
             return value;
         }
+=======
+>>>>>>> 4e4e0a43b961231b4760d9c949878cf7644f2556
     }
 }
