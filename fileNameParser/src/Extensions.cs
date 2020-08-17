@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Extensions
 {
     static class Extensions
     {
-        public static string Indent(this string str)
-        {
-            var result = new List<string>();
-            foreach (var line in str.Split('\n'))
-                result.Add($"\t{line}");
-            return string.Join('\n', result);
-        }
+        public static string Indent(this string str) 
+            => string.Join('\n', str.Split('\n').Select(line => $"\t{line}").ToList());
     }
 }
