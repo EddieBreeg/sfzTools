@@ -12,17 +12,17 @@ namespace mainProgram
         static void Main()
         {
             Console.Write("Path: ");
-            var rootPath = Console.ReadLine().Replace('\"', '\0');
+            var rootPath = Console.ReadLine()?.Replace('\"', '\0');
             while (!Directory.Exists(rootPath))
             {
                 Console.WriteLine($"{rootPath}: No such directory, please enter a valid path!");
                 Console.Write("Path: ");
-                rootPath = Console.ReadLine().Replace('\"', '\0');
+                rootPath = Console.ReadLine()?.Replace('\"', '\0');
             }
             string[] extensions = { "wav", "mp3", "flac", "ogg" };
             var ext = LineInput("File extension(default is wav): ", extensions, "wav");
             var files = new List<string>();
-            foreach (string file in Directory.GetFiles(rootPath, "*", SearchOption.AllDirectories))
+            foreach (var file in Directory.GetFiles(rootPath, "*", SearchOption.AllDirectories))
             {
                 if (Path.GetExtension(file) == "."+ext)
                     files.Add(file);
@@ -34,12 +34,12 @@ namespace mainProgram
             if (separator != 13)
                 parser.Separator = separator;
 
-            SampleMap map = new SampleMap();
+            var map = new SampleMap();
 
             var firstFile = parser.SplitName(files[0]);
             var lut = new char[firstFile.Length];
-            for (int i = 0; i < lut.Length; i++)
-                lut[i] = (map.midiNotes.Contains(firstFile[i]))? '1': '2';
+            for (var i = 0; i < lut.Length; i++)
+                lut[i] = map.midiNotes.Contains(firstFile[i]) ? '1': '2';
 
             if (firstFile.Length < 2)
             {
@@ -52,7 +52,11 @@ namespace mainProgram
             Console.WriteLine("1 = note name");
             Console.WriteLine("2 = group name\n");
 
+<<<<<<< HEAD
             for(int i = 0; i < lut.Length; i++)
+=======
+            for(var i = 0; i < lut.Length; i++)
+>>>>>>> 4e18bc6b59b8c276270299e6cba18bb704550e34
             {
                 lut[i] = KeyInput($"{firstFile[i]} (default is {lut[i]}): ", "01234", lut[i]);
                 Console.Write("\n");
@@ -69,10 +73,14 @@ namespace mainProgram
             
             foreach(var file in files)
             {
-                var rootNote="";
+                var rootNote = "";
                 var groupName = new List<string>();
                 var data = parser.SplitName(file);
+<<<<<<< HEAD
                 for (int i = 0; i < data.Length; i++)
+=======
+                for (var i = 0; i < data.Length; i++)
+>>>>>>> 4e18bc6b59b8c276270299e6cba18bb704550e34
                 {
                     switch (lut[i])
                     {
@@ -103,7 +111,7 @@ namespace mainProgram
             Console.WriteLine("1 = stretch down");
             Console.WriteLine("2 = stretch up\n");
 
-            char stretchMode = KeyInput("Please specify the stretch mode (default is 1): ", "012", '1');
+            var stretchMode = KeyInput("Please specify the stretch mode (default is 1): ", "012", '1');
 #if (DEBUG)
             Console.WriteLine(stretchMode);
 #endif
@@ -137,7 +145,7 @@ namespace mainProgram
         {
             Console.Write(str);
             var value = Console.ReadLine();
-            while (!choices.Contains(value) && value!="")
+            while (!choices.Contains(value) && value != "")
             {
                 Console.WriteLine("Invalid choice! Please try again.");
                 Console.Write(str);
