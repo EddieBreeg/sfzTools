@@ -78,7 +78,7 @@ namespace fileNameParser.SampleMap
     {
         public List<Region> Regions { get; } = new List<Region>();
         public readonly string name;
-        public SampleGroup(string name) { this.name = name; }
+        public SampleGroup(string name) => this.name = name;
         public SampleGroup(string name, Region region)
         {
             this.name = name;
@@ -87,7 +87,7 @@ namespace fileNameParser.SampleMap
 #if (DEBUG)
         public override string ToString() => name;
 #endif
-        public void SortRegions() { Regions.Sort(); }
+        public void SortRegions() => Regions.Sort();
       
         public string Render()
         {
@@ -106,8 +106,8 @@ namespace fileNameParser.SampleMap
 
         public Region(string file, string root)
         {
-            var m = new SampleMap();
-            var midiNotes = m.MidiNotes.ToList();
+            var map = new SampleMap();
+            var midiNotes = map.MidiNotes.ToList();
             _file = file;
             _root = root;
             midiNumber = midiNotes.IndexOf(root);
