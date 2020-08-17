@@ -1,7 +1,7 @@
 using System.IO;
 
 
-namespace Parser
+namespace filenameParser
 {
     class FileNameParser
     {

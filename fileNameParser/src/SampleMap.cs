@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using Extensions;
 
-namespace fileNameParser.SampleMap
+namespace filenameParser
 {
 
     public class SampleMap
