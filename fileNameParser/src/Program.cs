@@ -39,7 +39,7 @@ namespace mainProgram
             var firstFile = parser.SplitName(files[0]);
             var lut = new char[firstFile.Length];
             for (var i = 0; i < lut.Length; i++)
-                lut[i] = map.midiNotes.Contains(firstFile[i]) ? '1': '2';
+                lut[i] = map.MidiNotes.Contains(firstFile[i]) ? '1': '2';
 
             if (firstFile.Length < 2)
             {
@@ -64,7 +64,7 @@ namespace mainProgram
             {
                 Console.WriteLine("Error: no note information in the filenames");
                 Console.ReadKey();
-                throw new InvalidDataException();
+                Environment.Exit(1);
             }
             
             foreach(var file in files)
@@ -96,8 +96,8 @@ namespace mainProgram
             //Console.WriteLine(string.Join(", ", map.Articulations));
             //Console.WriteLine(string.Join(", ", map.DynamicLevels));
             //Console.WriteLine(string.Join(", ", map.RoundRobins));
-            Console.WriteLine(string.Join(", ", map.groups));
-            Console.WriteLine(string.Join('\n', map.groups[0].regions));
+            Console.WriteLine(string.Join(", ", map.Groups));
+            Console.WriteLine(string.Join('\n', map.Groups[0].Regions));
 #endif
             Console.WriteLine("Possible stretch modes: ");
             Console.WriteLine("0 = no stretch");
