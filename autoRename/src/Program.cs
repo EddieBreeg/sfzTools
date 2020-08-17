@@ -26,20 +26,35 @@ namespace autoRename
             dynamic interval = Console.ReadLine();
             interval = interval != string.Empty ? Convert.ToInt32(interval) : 5;
 
-            var ext = InputHandler.LineInput("File extension (default is wav): ", new []{ "wav", "mp3", "flac", "ogg" }, "wav");
+            var ext = "." + InputHandler.LineInput("File extension (default is wav): ", new []{ "wav", "mp3", "flac", "ogg" }, "wav");
 
-            var files = StructureHandler.SortByDirs(rootPath);
+            var files = StructureHandler.SortByDirs(rootPath, ext);
+#if (DEBUG)
+            foreach (var dir in files)
+                Console.WriteLine(string.Join('\n', dir));
+#endif
         }
     }
 
     public class StructureHandler
     {
-        public static string[][] SortByDirs(string rootPath)
+        public static string[][] SortByDirs(string rootPath, string extension = null)
         {
-            var result = new List<string[]> {Directory.GetFiles(rootPath)};
-            Directory.GetDirectories(rootPath).ToList().ForEach(d => result.AddRange(SortByDirs(d)));
+            var result = new List<string[]> {extension != null? ByExtension(rootPath, extension): Directory.GetFiles(rootPath)};
+            Directory.GetDirectories(rootPath).ToList().ForEach(d => result.AddRange(SortByDirs(d, extension)));
 
             return result.ToArray();
+        }
+
+        public static string[] ByExtension(string path, string extension)
+        {
+            var files = new List<string>();
+            foreach (var file in Directory.GetFiles(path))
+            {
+                if (Path.GetExtension(file) == extension)
+                    files.Add(file);
+            }
+            return files.ToArray();
         }
     }
 }
