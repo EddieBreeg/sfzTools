@@ -29,9 +29,24 @@ namespace autoRename
             var ext = "." + InputHandler.LineInput("File extension (default is wav): ", new []{ "wav", "mp3", "flac", "ogg" }, "wav");
 
             var files = StructureHandler.SortByDirs(rootPath, ext);
+            foreach(var dir in files)
+            {
+                int midiValue = map.MidiNotes.ToList().IndexOf(firstNote);
+                foreach (var file in dir)
+                {
+                    string prefix = Path.GetRelativePath(rootPath, Path.GetDirectoryName(file)).Replace(Path.DirectorySeparatorChar, '_');
+                    File.Move(file, Path.Combine(Path.GetDirectoryName(file), $"{prefix}_{map.MidiNotes[midiValue]}{ext}"));
+                    midiValue += interval;
+                }
+            }
+
+
 #if (DEBUG)
             foreach (var dir in files)
+            {
                 Console.WriteLine(string.Join('\n', dir));
+                Console.WriteLine('\n');
+            }
 #endif
         }
     }
@@ -51,7 +66,7 @@ namespace autoRename
             var files = new List<string>();
             foreach (var file in Directory.GetFiles(path))
             {
-                if (Path.GetExtension(file) == extension)
+                if (Path.GetExtension(file).ToLower() == extension.ToLower())
                     files.Add(file);
             }
             return files.ToArray();
