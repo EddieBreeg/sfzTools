@@ -61,13 +61,13 @@ namespace autoRename
         {
             Console.Write(str);
             var value = Console.ReadLine();
-            while (!choices.Contains(value) && value != "")
+            while (!choices.Contains(value) && value != string.Empty)
             {
                 Console.WriteLine("Invalid choice! Please try again.");
                 Console.Write(str);
                 value = Console.ReadLine();
             }
-            if (value == "")
+            if (value == string.Empty)
                 return defaultValue;
             return value;
         }
