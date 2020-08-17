@@ -1,7 +1,8 @@
-*/obj/
+obj/
 *.cache
 .vs
-*.sln
 Properties
-bin
+bin/
 *.cmd
+Dist/
+*.user
