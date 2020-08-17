@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using filenameParser.Extensions;
+using filenameParser.Modules;
 
 namespace filenameParser
 {
@@ -100,9 +100,9 @@ namespace filenameParser
     public class Region : IComparable
     {
         private readonly string _root;
-        public int loKey, hiKey;
+        internal int loKey, hiKey;
         private readonly string _file;
-        public readonly int midiNumber;
+        internal readonly int midiNumber;
 
         public Region(string file, string root)
         {

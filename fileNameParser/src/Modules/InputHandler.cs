@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace filenameParser
+namespace filenameParser.Modules
 {
     public static class InputHandler
     {
@@ -14,7 +14,6 @@ namespace filenameParser
                 Console.WriteLine("Invalid choice! Please try again.");
                 Console.Write(str);
                 value = Console.ReadKey().KeyChar;
-                //Console.WriteLine(value);
             }
             if (value == '\r')
                 return defaultValue;
