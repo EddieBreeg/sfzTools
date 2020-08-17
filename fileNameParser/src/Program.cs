@@ -52,7 +52,6 @@ namespace mainProgram
             Console.WriteLine("1 = note name");
             Console.WriteLine("2 = group name\n");
 
-
             for(int i = 0; i < lut.Length; i++)
             {
                 lut[i] = KeyInput($"{firstFile[i]} (default is {lut[i]}): ", "01234", lut[i]);
@@ -73,6 +72,7 @@ namespace mainProgram
                 var rootNote = "";
                 var groupName = new List<string>();
                 var data = parser.SplitName(file);
+
                 for (int i = 0; i < data.Length; i++)
                 {
                     switch (lut[i])
