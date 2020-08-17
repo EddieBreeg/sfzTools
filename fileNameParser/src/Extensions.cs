@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Extensions
 {
@@ -6,10 +7,8 @@ namespace Extensions
     {
         public static string Indent(this string str)
         {
-            var result = new List<string>();
-            foreach (var line in str.Split('\n'))
-                result.Add($"\t{line}");
-            return string.Join('\n', result);
+          var result = str.Split('\n').Select(line => $"\t{line}").ToList();
+          return string.Join('\n', result);
         }
     }
 }
