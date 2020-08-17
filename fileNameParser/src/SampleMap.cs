@@ -22,7 +22,7 @@ namespace fileNameParser.SampleMap
         }
         public void AddRegion(Region region, string groupName)
         {
-            int index = FindGroup(groupName);
+            var index = FindGroup(groupName);
             if (index != -1)
                 Groups[index].Regions.Add(region);
             else
@@ -53,12 +53,12 @@ namespace fileNameParser.SampleMap
                 {
                     case '1':
                         g.Regions[0].LoKey = 0;
-                        for (int i = 1; i < g.Regions.Count; i++)
+                        for (var i = 1; i < g.Regions.Count; i++)
                             g.Regions[i].LoKey = g.Regions[i - 1].MidiNumber + 1;
                         break;
                     case '2':
                         g.Regions[^1].HiKey = MidiNotes.Length - 1;
-                        for (int i = 0; i < g.Regions.Count-1; i++)
+                        for (var i = 0; i < g.Regions.Count-1; i++)
                             g.Regions[i].HiKey = g.Regions[i + 1].MidiNumber - 1;
                         break;
                     default:
@@ -91,7 +91,9 @@ namespace fileNameParser.SampleMap
         public string Render()
         {
             var result = $"<group> //{Name}\n";
-            return Regions.Aggregate(result, (current, region) => current + (region.Render().Indent() + "\n\n"));
+            
+            Regions.ForEach(region => result += region.Render().Indent()+"\n\n");
+            return result;
         }
     }
 
