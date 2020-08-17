@@ -4,21 +4,17 @@ using System.IO;
 using System.Linq;
 using filenameParser.Extensions;
 
-<<<<<<< HEAD
-namespace filenameParser.SampleMap
-=======
 namespace filenameParser
->>>>>>> 4e4e0a43b961231b4760d9c949878cf7644f2556
 {
 
-    public class Map
+    public class SampleMap
     {
         public string[] MidiNotes { get; } = new string[128];
         public List<SampleGroup> Groups { get; } = new List<SampleGroup>();
         //public List<string> DynamicLevels = new List<string>();
         //public List<string> Articulations = new List<string>();
         //public List<string> RoundRobins = new List<string>();
-        public Map()
+        public SampleMap()
         {
             string[] notes = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
             for (int i = 0; i < MidiNotes.Length; i++)
@@ -110,13 +106,8 @@ namespace filenameParser
 
         public Region(string file, string root)
         {
-<<<<<<< HEAD
-            var m = new Map();
-            var midiNotes = m.MidiNotes.ToList();
-=======
             var map = new SampleMap();
             var midiNotes = map.MidiNotes.ToList();
->>>>>>> 4e4e0a43b961231b4760d9c949878cf7644f2556
             _file = file;
             _root = root;
             midiNumber = midiNotes.IndexOf(root);
