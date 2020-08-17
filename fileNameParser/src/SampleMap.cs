@@ -18,7 +18,7 @@ namespace filenameParser
         {
             string[] notes = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
             for (int i = 0; i < MidiNotes.Length; i++)
-                MidiNotes[i] = $"{notes[i % 12]} {i / 12}";
+                MidiNotes[i] = $"{notes[i % 12]}{i / 12}";
         }
         public void AddRegion(Region region, string groupName)
         {

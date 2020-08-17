@@ -28,9 +28,14 @@ namespace autoRename
             var ext = "." + InputHandler.LineInput("File extension (default is wav): ", new []{ "wav", "mp3", "flac", "ogg" }, "wav");
 
             var files = StructureHandler.SortByDirs(rootPath, ext);
+
 #if (DEBUG)
             foreach (var dir in files)
+            {
                 Console.WriteLine(string.Join('\n', dir));
+                Console.WriteLine('\n');
+            }
+            Console.WriteLine(string.Join(", ", map.MidiNotes));
 #endif
         }
     }
