@@ -33,7 +33,7 @@ namespace fileNameParser.SampleMap
         }
         private int FindGroup(string groupName)
         {
-            for(int i=0; i<groups.Count;i++)
+            for(var i=0; i<groups.Count;i++)
             {
                 if (groups[i].name == groupName)
                     return i;
