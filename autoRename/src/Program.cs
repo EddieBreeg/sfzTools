@@ -25,14 +25,13 @@ namespace autoRename
             dynamic interval = Console.ReadLine();
             interval = interval != string.Empty ? Convert.ToInt32(interval) : 5;
 
-            string[] extensions = { "wav", "mp3", "flac", "ogg" };
-            var ext = InputHandler.LineInput("File extension (default is wav): ", extensions, "wav");
+            var ext = InputHandler.LineInput("File extension (default is wav): ", new []{ "wav", "mp3", "flac", "ogg" }, "wav");
 
             var files = StructureHandler.SortByDirs(rootPath);
         }
     }
 
-    class StructureHandler
+    internal class StructureHandler
     {
         public static string[][] SortByDirs(string rootPath)
         {

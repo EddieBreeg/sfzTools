@@ -18,7 +18,7 @@ namespace filenameParser
                 rootPath = Console.ReadLine()?.Replace("\"", "");
             }
             
-            var ext = InputHandler.LineInput("File extension(default is wav): ", new[] { "wav", "mp3", "flac", "ogg" }, "wav");
+            var ext = InputHandler.LineInput("File extension(default is wav): ", new []{ "wav", "mp3", "flac", "ogg" }, "wav");
             var files = new List<string>();
             foreach (var file in Directory.GetFiles(rootPath, "*", SearchOption.AllDirectories))
             {
@@ -52,7 +52,7 @@ namespace filenameParser
 
             for(int i = 0; i < lut.Length; i++)
             {
-                lut[i] = InputHandler.KeyInput($"{firstFile[i]} (default is {lut[i]}): ", new[] {'0', '1', '2'}, lut[i]);
+                lut[i] = InputHandler.KeyInput($"{firstFile[i]} (default is {lut[i]}): ", new []{'0', '1', '2'}, lut[i]);
                 Console.Write("\n");
             }
 #if DEBUG
@@ -102,7 +102,7 @@ namespace filenameParser
             Console.WriteLine("1 = stretch down");
             Console.WriteLine("2 = stretch up\n");
 
-            var stretchMode = InputHandler.KeyInput("Please specify the stretch mode (default is 1): ", new[] {'0', '1', '2'}, '1');
+            var stretchMode = InputHandler.KeyInput("Please specify the stretch mode (default is 1): ", new []{'0', '1', '2'}, '1');
 #if (DEBUG)
             Console.WriteLine(stretchMode);
 #endif
