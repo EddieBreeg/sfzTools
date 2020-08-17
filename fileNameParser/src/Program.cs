@@ -64,7 +64,7 @@ namespace mainProgram
             {
                 Console.WriteLine("Error: no note information in the filenames");
                 Console.ReadKey();
-                throw new InvalidDataException();
+                Environment.Exit(1);
             }
             
             foreach(var file in files)
