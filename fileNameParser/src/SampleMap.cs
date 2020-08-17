@@ -69,7 +69,8 @@ namespace fileNameParser.SampleMap
         public string Render(string defaultPath)
         {
             var result = $"<control>\ndefault_path={Path.GetFileNameWithoutExtension(defaultPath)}/\n\n";
-            return Groups.Aggregate(result, (current, g) => current + g.Render());
+            Groups.ForEach(group => result += group.Render());
+            return result;
         }
     }
 
@@ -91,7 +92,8 @@ namespace fileNameParser.SampleMap
         public string Render()
         {
             var result = $"<group> //{Name}\n";
-            return Regions.Aggregate(result, (current, region) => current + (region.Render().Indent() + "\n\n"));
+            Regions.ForEach(r => result += r.Render().Indent() + "\n\n");
+            return result;
         }
     }
 
