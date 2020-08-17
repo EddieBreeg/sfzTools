@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace filenameParser
+namespace filenameParser.Modules
 {
     public static class InputHandler
     {

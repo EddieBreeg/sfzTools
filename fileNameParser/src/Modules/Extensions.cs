@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Extensions
+namespace filenameParser.Modules
 {
     static class Extensions
     {
