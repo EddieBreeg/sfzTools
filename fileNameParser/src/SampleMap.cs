@@ -7,7 +7,7 @@ using Extensions;
 namespace fileNameParser.SampleMap
 {
 
-    class SampleMap
+    public class SampleMap
     {
         public string[] MidiNotes { get; } = new string[128];
         public List<SampleGroup> Groups { get; } = new List<SampleGroup>();
@@ -74,7 +74,7 @@ namespace fileNameParser.SampleMap
         }
     }
 
-    class SampleGroup
+    public class SampleGroup
     {
         public List<Region> Regions { get; } = new List<Region>();
         public readonly string name;
@@ -97,7 +97,7 @@ namespace fileNameParser.SampleMap
         }
     }
 
-    class Region : IComparable
+    public class Region : IComparable
     {
         private readonly string _root;
         public int loKey, hiKey;

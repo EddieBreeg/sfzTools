@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-//using Extensions;
+using fileNameParser.SampleMap;
 
 namespace autoRename
 {
     class StructureHandler
     {
-        public static string[] ListRelatives(string path)
+        public static string[][] SortByDirs(string rootPath)
         {
-            var tree = new List<string>();
-            foreach (string file in Directory.GetFiles(path, "*", SearchOption.AllDirectories))
-                tree.Add(Path.GetRelativePath(path, file));
-            return tree.ToArray();
+            var result = new List<string[]>();
+            result.Add(Directory.GetFiles(rootPath));
+            Directory.GetDirectories(rootPath).ToList().ForEach(d => result.AddRange(SortByDirs(d)));
+
+            return result.ToArray();
         }
     }
     class Program
@@ -21,11 +22,24 @@ namespace autoRename
         public static void Main(string[] args)
         {
             Console.Write("Path: ");
-            var path = Console.ReadLine();
-            while (Directory.Exists(path))
+            var rootPath = Console.ReadLine()?.Replace("\"", "");
+            while (!Directory.Exists(rootPath))
             {
-                Console.WriteLine($"");
+                Console.WriteLine($"{rootPath}: No such directory, please enter a valid path!");
+                Console.Write("Path: ");
+                rootPath = Console.ReadLine()?.Replace("\"", "");
             }
+
+            var map = new SampleMap();
+            var firstNote = LineInput("First note (default is C0): ", map.MidiNotes, "C0");
+            Console.Write("Interval between the notes in semitones (default is 5): ");
+            dynamic interval = Console.ReadLine();
+            interval = (interval != "") ? Convert.ToInt32(interval) : 5;
+
+            string[] extensions = { "wav", "mp3", "flac", "ogg" };
+            var ext = LineInput("File extension (default is wav): ", extensions, "wav");
+
+            var files = StructureHandler.SortByDirs(rootPath);
         }
 
         private static char KeyInput(string str, string choices, char defaultValue)
