@@ -86,7 +86,6 @@ namespace fileNameParser.SampleMap
         public override string ToString() { return Name; }
         public void SortRegions() { Regions.Sort(); }
         public string Render()
-
         {
             var result = $"<group> //{Name}\n";
             return Regions.Aggregate(result, (current, region) => current + (region.Render().Indent() + "\n\n"));
