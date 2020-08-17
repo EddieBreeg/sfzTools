@@ -1,18 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-<<<<<<< HEAD
-using Parser;
-using filenameParser.SampleMap;
-using System.Collections.Generic;
-
-namespace fileNameParser
-=======
 using System.Collections.Generic;
 using filenameParser.Modules;
 
 namespace filenameParser
->>>>>>> 4e4e0a43b961231b4760d9c949878cf7644f2556
 {
     public class Program
     {
@@ -41,7 +33,7 @@ namespace filenameParser
             if (separator != '\r')
                 parser.Separator = separator;
 
-            var map = new Map();
+            var map = new SampleMap();
 
             var firstFile = parser.SplitName(files[0]);
             var lut = new char[firstFile.Length];
@@ -124,7 +116,6 @@ namespace filenameParser
             Console.WriteLine($"{outputPath} successfully created!");
             Console.ReadKey();
         }
-<<<<<<< HEAD
 
         public static char KeyInput(string str, string choices, char defaultValue)
         {
@@ -156,7 +147,5 @@ namespace filenameParser
                 return defaultValue;
             return value;
         }
-=======
->>>>>>> 4e4e0a43b961231b4760d9c949878cf7644f2556
     }
 }
