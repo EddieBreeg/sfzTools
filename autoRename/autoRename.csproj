@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\fileNameParser\fileNameParser.csproj" />
+    <ProjectReference Include="..\filenameParser\fileNameParser.csproj" />
   </ItemGroup>
 
 </Project>

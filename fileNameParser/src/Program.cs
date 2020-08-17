@@ -1,11 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using Parser;
-using fileNameParser.SampleMap;
 using System.Collections.Generic;
 
-namespace mainProgram
+namespace filenameParser
 {
     class Program
     {
@@ -19,8 +17,8 @@ namespace mainProgram
                 Console.Write("Path: ");
                 rootPath = Console.ReadLine()?.Replace("\"", "");
             }
-            string[] extensions = { "wav", "mp3", "flac", "ogg" };
-            var ext = LineInput("File extension(default is wav): ", extensions, "wav");
+            
+            var ext = InputHandler.LineInput("File extension(default is wav): ", new []{ "wav", "mp3", "flac", "ogg" }, "wav");
             var files = new List<string>();
             foreach (var file in Directory.GetFiles(rootPath, "*", SearchOption.AllDirectories))
             {
@@ -54,7 +52,7 @@ namespace mainProgram
 
             for(int i = 0; i < lut.Length; i++)
             {
-                lut[i] = KeyInput($"{firstFile[i]} (default is {lut[i]}): ", "01234", lut[i]);
+                lut[i] = InputHandler.KeyInput($"{firstFile[i]} (default is {lut[i]}): ", new []{'0', '1', '2'}, lut[i]);
                 Console.Write("\n");
             }
 #if DEBUG
@@ -104,7 +102,7 @@ namespace mainProgram
             Console.WriteLine("1 = stretch down");
             Console.WriteLine("2 = stretch up\n");
 
-            var stretchMode = KeyInput("Please specify the stretch mode (default is 1): ", "012", '1');
+            var stretchMode = InputHandler.KeyInput("Please specify the stretch mode (default is 1): ", new []{'0', '1', '2'}, '1');
 #if (DEBUG)
             Console.WriteLine(stretchMode);
 #endif
@@ -116,37 +114,6 @@ namespace mainProgram
             File.WriteAllText(outputPath, map.Render(rootPath));
             Console.WriteLine($"{outputPath} successfully created!");
             Console.ReadKey();
-        }
-
-        private static char KeyInput(string str, string choices, char defaultValue)
-        {
-            Console.Write(str);
-            var value = Console.ReadKey().KeyChar;
-            while(!choices.Contains(value) && value!='\r')
-            {
-                Console.WriteLine("Invalid choice! Please try again.");
-                Console.Write(str);
-                value = Console.ReadKey().KeyChar;
-                //Console.WriteLine(value);
-            }
-            if (value == '\r')
-                return defaultValue;
-            return value;
-        }
-
-        private static string LineInput(string str, string[] choices, string defaultValue)
-        {
-            Console.Write(str);
-            var value = Console.ReadLine();
-            while (!choices.Contains(value) && value != "")
-            {
-                Console.WriteLine("Invalid choice! Please try again.");
-                Console.Write(str);
-                value = Console.ReadLine();
-            }
-            if (value == "")
-                return defaultValue;
-            return value;
         }
     }
 }
