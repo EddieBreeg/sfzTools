@@ -7,6 +7,6 @@ namespace Parser
     {
         public char Separator { get; set; } = '_';
 
-        public string[] SplitName(string filename) { return Path.GetFileNameWithoutExtension(filename).Split(Separator); }
+        public string[] SplitName(string filename) => Path.GetFileNameWithoutExtension(filename).Split(Separator);
     }
 }
