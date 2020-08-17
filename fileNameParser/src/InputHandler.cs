@@ -14,7 +14,6 @@ namespace filenameParser
                 Console.WriteLine("Invalid choice! Please try again.");
                 Console.Write(str);
                 value = Console.ReadKey().KeyChar;
-                //Console.WriteLine(value);
             }
             if (value == '\r')
                 return defaultValue;

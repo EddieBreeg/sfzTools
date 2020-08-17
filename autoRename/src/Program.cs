@@ -31,7 +31,7 @@ namespace autoRename
         }
     }
 
-    internal class StructureHandler
+    public class StructureHandler
     {
         public static string[][] SortByDirs(string rootPath)
         {
