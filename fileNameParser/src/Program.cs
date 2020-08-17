@@ -12,12 +12,12 @@ namespace mainProgram
         static void Main()
         {
             Console.Write("Path: ");
-            var rootPath = Console.ReadLine()?.Replace('\"', '\0');
+            var rootPath = Console.ReadLine()?.Replace("\"", "");
             while (!Directory.Exists(rootPath))
             {
                 Console.WriteLine($"{rootPath}: No such directory, please enter a valid path!");
                 Console.Write("Path: ");
-                rootPath = Console.ReadLine()?.Replace('\"', '\0');
+                rootPath = Console.ReadLine()?.Replace("\"", "");
             }
             string[] extensions = { "wav", "mp3", "flac", "ogg" };
             var ext = LineInput("File extension(default is wav): ", extensions, "wav");
@@ -52,11 +52,8 @@ namespace mainProgram
             Console.WriteLine("1 = note name");
             Console.WriteLine("2 = group name\n");
 
-<<<<<<< HEAD
+
             for(int i = 0; i < lut.Length; i++)
-=======
-            for(var i = 0; i < lut.Length; i++)
->>>>>>> 4e18bc6b59b8c276270299e6cba18bb704550e34
             {
                 lut[i] = KeyInput($"{firstFile[i]} (default is {lut[i]}): ", "01234", lut[i]);
                 Console.Write("\n");
@@ -76,11 +73,7 @@ namespace mainProgram
                 var rootNote = "";
                 var groupName = new List<string>();
                 var data = parser.SplitName(file);
-<<<<<<< HEAD
                 for (int i = 0; i < data.Length; i++)
-=======
-                for (var i = 0; i < data.Length; i++)
->>>>>>> 4e18bc6b59b8c276270299e6cba18bb704550e34
                 {
                     switch (lut[i])
                     {
