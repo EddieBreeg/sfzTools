@@ -45,14 +45,18 @@ namespace mainProgram
             {
                 Console.WriteLine("Fatal error: No valid token found in filenames");
                 Console.ReadKey();
-                throw new InvalidDataException();
+                Environment.Exit(1);
             }
             Console.WriteLine("The parser found the following tokens, please specify how the program should treat each one:");
             Console.WriteLine("0 = ignore");
             Console.WriteLine("1 = note name");
             Console.WriteLine("2 = group name\n");
 
+<<<<<<< HEAD
+            for(int i = 0; i < lut.Length; i++)
+=======
             for(var i = 0; i < lut.Length; i++)
+>>>>>>> 4e18bc6b59b8c276270299e6cba18bb704550e34
             {
                 lut[i] = KeyInput($"{firstFile[i]} (default is {lut[i]}): ", "01234", lut[i]);
                 Console.Write("\n");
@@ -72,7 +76,11 @@ namespace mainProgram
                 var rootNote = "";
                 var groupName = new List<string>();
                 var data = parser.SplitName(file);
+<<<<<<< HEAD
+                for (int i = 0; i < data.Length; i++)
+=======
                 for (var i = 0; i < data.Length; i++)
+>>>>>>> 4e18bc6b59b8c276270299e6cba18bb704550e34
                 {
                     switch (lut[i])
                     {
