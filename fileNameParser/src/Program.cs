@@ -39,7 +39,7 @@ namespace mainProgram
             var firstFile = parser.SplitName(files[0]);
             var lut = new char[firstFile.Length];
             for (int i = 0; i < lut.Length; i++)
-                lut[i] = (map.MidiNotes.Contains(firstFile[i]))? '1': '2';
+                lut[i] = (map.midiNotes.Contains(firstFile[i]))? '1': '2';
 
             if (firstFile.Length < 2)
             {
@@ -69,7 +69,7 @@ namespace mainProgram
             
             foreach(var file in files)
             {
-                string rootNote="";
+                var rootNote="";
                 var groupName = new List<string>();
                 var data = parser.SplitName(file);
                 for (int i=0; i<data.Length; i++)
@@ -95,8 +95,8 @@ namespace mainProgram
             //Console.WriteLine(string.Join(", ", map.Articulations));
             //Console.WriteLine(string.Join(", ", map.DynamicLevels));
             //Console.WriteLine(string.Join(", ", map.RoundRobins));
-            Console.WriteLine(string.Join(", ", map.Groups));
-            Console.WriteLine(string.Join('\n', map.Groups[0].Regions));
+            Console.WriteLine(string.Join(", ", map.groups));
+            Console.WriteLine(string.Join('\n', map.groups[0].regions));
 #endif
             Console.WriteLine("Possible stretch modes: ");
             Console.WriteLine("0 = no stretch");
@@ -108,16 +108,16 @@ namespace mainProgram
             Console.WriteLine(stretchMode);
 #endif
             map.StretchRegions(stretchMode);
-            foreach (string file in files)
+            foreach (var file in files)
                 File.Move(file, Path.Combine(rootPath, Path.GetFileName(file)));
 
-            string outputPath = Path.Combine(Path.GetDirectoryName(rootPath), "map.sfz");
+            var outputPath = Path.Combine(Path.GetDirectoryName(rootPath), "map.sfz");
             File.WriteAllText(outputPath, map.Render(rootPath));
             Console.WriteLine($"{outputPath} successfully created!");
             Console.ReadKey();
         }
 
-        public static char KeyInput(string str, string choices, char defaultValue)
+        private static char KeyInput(string str, string choices, char defaultValue)
         {
             Console.Write(str);
             var value = Console.ReadKey().KeyChar;
