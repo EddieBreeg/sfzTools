@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 //using Extensions;
 
 namespace autoRename
@@ -19,20 +20,43 @@ namespace autoRename
     {
         public static void Main(string[] args)
         {
-            if (args.Length < 3)
+            Console.Write("Path: ");
+            var path = Console.ReadLine();
+            while (Directory.Exists(path))
             {
-                Console.WriteLine("Please specify:");
-                Console.WriteLine("- A root path");
-                Console.WriteLine("- The name of the first note");
-                Console.WriteLine("- The interval between each sample (in semitones)");
-                return;
+                Console.WriteLine($"");
             }
+        }
 
-            string rootPath = args[0];
-            int interval = Convert.ToInt32(args[1]);
-            string firstNote = args[2];
-            string extension = (args.Length > 3) ? args[2] : "wav";
-            Console.WriteLine(string.Join('\n', StructureHandler.ListRelatives(rootPath)));
+        private static char KeyInput(string str, string choices, char defaultValue)
+        {
+            Console.Write(str);
+            var value = Console.ReadKey().KeyChar;
+            while (!choices.Contains(value) && value != '\r')
+            {
+                Console.WriteLine("Invalid choice! Please try again.");
+                Console.Write(str);
+                value = Console.ReadKey().KeyChar;
+                //Console.WriteLine(value);
+            }
+            if (value == '\r')
+                return defaultValue;
+            return value;
+        }
+
+        private static string LineInput(string str, string[] choices, string defaultValue)
+        {
+            Console.Write(str);
+            var value = Console.ReadLine();
+            while (!choices.Contains(value) && value != "")
+            {
+                Console.WriteLine("Invalid choice! Please try again.");
+                Console.Write(str);
+                value = Console.ReadLine();
+            }
+            if (value == "")
+                return defaultValue;
+            return value;
         }
     }
 }

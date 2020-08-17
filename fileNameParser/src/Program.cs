@@ -12,12 +12,12 @@ namespace mainProgram
         static void Main()
         {
             Console.Write("Path: ");
-            var rootPath = Console.ReadLine()?.Replace('\"', '\0');
+            var rootPath = Console.ReadLine()?.Replace("\"", "");
             while (!Directory.Exists(rootPath))
             {
                 Console.WriteLine($"{rootPath}: No such directory, please enter a valid path!");
                 Console.Write("Path: ");
-                rootPath = Console.ReadLine()?.Replace('\"', '\0');
+                rootPath = Console.ReadLine()?.Replace("\"", "");
             }
             string[] extensions = { "wav", "mp3", "flac", "ogg" };
             var ext = LineInput("File extension(default is wav): ", extensions, "wav");
@@ -51,7 +51,7 @@ namespace mainProgram
             Console.WriteLine("0 = ignore");
             Console.WriteLine("1 = note name");
             Console.WriteLine("2 = group name\n");
-            
+
             for(int i = 0; i < lut.Length; i++)
             {
                 lut[i] = KeyInput($"{firstFile[i]} (default is {lut[i]}): ", "01234", lut[i]);
@@ -72,7 +72,7 @@ namespace mainProgram
                 var rootNote = "";
                 var groupName = new List<string>();
                 var data = parser.SplitName(file);
-                
+
                 for (int i = 0; i < data.Length; i++)
                 {
                     switch (lut[i])
