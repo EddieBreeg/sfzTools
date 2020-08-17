@@ -5,3 +5,4 @@ obj/
 Properties
 bin/
 *.cmd
+*.user
