@@ -90,10 +90,9 @@ namespace fileNameParser.SampleMap
             Name = name;
             Regions.Add(region);
         }
-        public override string ToString()
-        {
-            return Name;
-        }
+#if (DEBUG)
+        public override string ToString() => Name;
+#endif
         public void SortRegions()
         {
             Regions.Sort();
@@ -127,10 +126,10 @@ namespace fileNameParser.SampleMap
             HiKey = MidiNumber;
             
         }
-        public override string ToString()
-        {
-            return File;
-        }
+#if (DEBUG)
+        public override string ToString() => File;
+#endif
+
         public int CompareTo(object obj)
         {
             if (obj is Region other)
