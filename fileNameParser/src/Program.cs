@@ -122,7 +122,7 @@ namespace mainProgram
         {
             Console.Write(str);
             var value = Console.ReadKey().KeyChar;
-            while(!choices.Contains(value) && value!='\r')
+            while(!choices.Contains(value) && value != '\r')
             {
                 Console.WriteLine("Invalid choice! Please try again.");
                 Console.Write(str);

@@ -10,8 +10,7 @@ namespace autoRename
     {
         public static string[][] SortByDirs(string rootPath)
         {
-            var result = new List<string[]>();
-            result.Add(Directory.GetFiles(rootPath));
+            var result = new List<string[]> {Directory.GetFiles(rootPath)};
             Directory.GetDirectories(rootPath).ToList().ForEach(d => result.AddRange(SortByDirs(d)));
 
             return result.ToArray();
@@ -34,7 +33,7 @@ namespace autoRename
             var firstNote = LineInput("First note (default is C0): ", map.MidiNotes, "C0");
             Console.Write("Interval between the notes in semitones (default is 5): ");
             dynamic interval = Console.ReadLine();
-            interval = (interval != "") ? Convert.ToInt32(interval) : 5;
+            interval = interval != string.Empty ? Convert.ToInt32(interval) : 5;
 
             string[] extensions = { "wav", "mp3", "flac", "ogg" };
             var ext = LineInput("File extension (default is wav): ", extensions, "wav");
