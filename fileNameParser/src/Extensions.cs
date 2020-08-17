@@ -6,8 +6,8 @@ namespace Extensions
     {
         public static string Indent(this string str)
         {
-            List<string> result = new List<string>();
-            foreach (string line in str.Split('\n'))
+            var result = new List<string>();
+            foreach (var line in str.Split('\n'))
                 result.Add($"\t{line}");
             return string.Join('\n', result);
         }
