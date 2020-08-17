@@ -116,36 +116,5 @@ namespace filenameParser
             Console.WriteLine($"{outputPath} successfully created!");
             Console.ReadKey();
         }
-
-        public static char KeyInput(string str, string choices, char defaultValue)
-        {
-            Console.Write(str);
-            var value = Console.ReadKey().KeyChar;
-            while(!choices.Contains(value) && value!='\r')
-            {
-                Console.WriteLine("Invalid choice! Please try again.");
-                Console.Write(str);
-                value = Console.ReadKey().KeyChar;
-                //Console.WriteLine(value);
-            }
-            if (value == '\r')
-                return defaultValue;
-            return value;
-        }
-
-        public static string LineInput(string str, string[] choices, string defaultValue)
-        {
-            Console.Write(str);
-            var value = Console.ReadLine();
-            while (!choices.Contains(value) && value != "")
-            {
-                Console.WriteLine("Invalid choice! Please try again.");
-                Console.Write(str);
-                value = Console.ReadLine();
-            }
-            if (value == "")
-                return defaultValue;
-            return value;
-        }
     }
 }
