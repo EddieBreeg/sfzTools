@@ -6,3 +6,4 @@ bin/
 *.cmd
 Dist/
 *.user
+Examples/
