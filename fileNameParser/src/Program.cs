@@ -2,12 +2,12 @@
 using System.IO;
 using System.Linq;
 using Parser;
-using fileNameParser.SampleMap;
+using filenameParser.SampleMap;
 using System.Collections.Generic;
 
-namespace mainProgram
+namespace fileNameParser
 {
-    class Program
+    public class Program
     {
         static void Main()
         {
@@ -34,7 +34,7 @@ namespace mainProgram
             if (separator != 13)
                 parser.Separator = separator;
 
-            var map = new SampleMap();
+            var map = new Map();
 
             var firstFile = parser.SplitName(files[0]);
             var lut = new char[firstFile.Length];
@@ -118,7 +118,7 @@ namespace mainProgram
             Console.ReadKey();
         }
 
-        private static char KeyInput(string str, string choices, char defaultValue)
+        public static char KeyInput(string str, string choices, char defaultValue)
         {
             Console.Write(str);
             var value = Console.ReadKey().KeyChar;
@@ -134,7 +134,7 @@ namespace mainProgram
             return value;
         }
 
-        private static string LineInput(string str, string[] choices, string defaultValue)
+        public static string LineInput(string str, string[] choices, string defaultValue)
         {
             Console.Write(str);
             var value = Console.ReadLine();

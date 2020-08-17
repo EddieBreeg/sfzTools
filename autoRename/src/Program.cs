@@ -2,18 +2,35 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using fileNameParser.SampleMap;
+using filenameParser.SampleMap;
+using filenameParser.Extensions;
 
 namespace autoRename
 {
     class StructureHandler
     {
-        public static string[][] SortByDirs(string rootPath)
+        public static string[][] SortByDirs(string rootPath, string extension="")
         {
             var result = new List<string[]>();
-            result.Add(Directory.GetFiles(rootPath));
+            switch (extension)
+            {
+                case "":
+                    Console.WriteLine("weird shit");
+                    result.Add(Directory.GetFiles(rootPath));
+                    break;
+                default:
+                    var files = new List<string>();
+                    foreach (string file in Directory.GetFiles(rootPath))
+                    {
+                        Console.WriteLine(Path.GetExtension(file));
+                        if (Path.GetExtension(file) == "." + extension)
+                            files.Add(file);
+                    }
+                    if (files.Count > 0)
+                        result.Add(files.ToArray());
+                    break;
+            }
             Directory.GetDirectories(rootPath).ToList().ForEach(d => result.AddRange(SortByDirs(d)));
-
             return result.ToArray();
         }
     }
@@ -30,47 +47,24 @@ namespace autoRename
                 rootPath = Console.ReadLine()?.Replace("\"", "");
             }
 
-            var map = new SampleMap();
-            var firstNote = LineInput("First note (default is C0): ", map.MidiNotes, "C0");
+            var map = new Map();
+            var firstNote = fileNameParser.Program.LineInput("First note (default is C0): ", map.MidiNotes, "C0");
             Console.Write("Interval between the notes in semitones (default is 5): ");
             dynamic interval = Console.ReadLine();
             interval = (interval != "") ? Convert.ToInt32(interval) : 5;
 
             string[] extensions = { "wav", "mp3", "flac", "ogg" };
-            var ext = LineInput("File extension (default is wav): ", extensions, "wav");
+            var ext = fileNameParser.Program.LineInput("File extension (default is wav): ", extensions, "wav");
+            Console.WriteLine(ext);
 
-            var files = StructureHandler.SortByDirs(rootPath);
-        }
-
-        private static char KeyInput(string str, string choices, char defaultValue)
-        {
-            Console.Write(str);
-            var value = Console.ReadKey().KeyChar;
-            while (!choices.Contains(value) && value != '\r')
-            {
-                Console.WriteLine("Invalid choice! Please try again.");
-                Console.Write(str);
-                value = Console.ReadKey().KeyChar;
-                //Console.WriteLine(value);
-            }
-            if (value == '\r')
-                return defaultValue;
-            return value;
-        }
-
-        private static string LineInput(string str, string[] choices, string defaultValue)
-        {
-            Console.Write(str);
-            var value = Console.ReadLine();
-            while (!choices.Contains(value) && value != "")
-            {
-                Console.WriteLine("Invalid choice! Please try again.");
-                Console.Write(str);
-                value = Console.ReadLine();
-            }
-            if (value == "")
-                return defaultValue;
-            return value;
+            var files = StructureHandler.SortByDirs(rootPath, ext);
+#if DEBUG
+            //foreach(var dir in files)
+            //{
+            //    Console.WriteLine(dir.Length);
+            //    Console.WriteLine(string.Join('\n', dir));
+            //}
+#endif
         }
     }
 }
