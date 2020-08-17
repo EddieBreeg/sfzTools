@@ -1,7 +1,6 @@
 obj/
 *.cache
 .vs
-*.sln
 Properties
 bin/
 *.cmd
