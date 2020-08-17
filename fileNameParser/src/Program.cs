@@ -12,7 +12,7 @@ namespace mainProgram
         static void Main()
         {
             Console.Write("Path: ");
-            string rootPath = Console.ReadLine().Replace('\"', '\0');
+            var rootPath = Console.ReadLine().Replace('\"', '\0');
             while (!Directory.Exists(rootPath))
             {
                 Console.WriteLine($"{rootPath}: No such directory, please enter a valid path!");
@@ -20,7 +20,7 @@ namespace mainProgram
                 rootPath = Console.ReadLine().Replace('\"', '\0');
             }
             string[] extensions = { "wav", "mp3", "flac", "ogg" };
-            string ext = LineInput("File extension(default is wav): ", extensions, "wav");
+            var ext = LineInput("File extension(default is wav): ", extensions, "wav");
             var files = new List<string>();
             foreach (string file in Directory.GetFiles(rootPath, "*", SearchOption.AllDirectories))
             {
@@ -30,14 +30,14 @@ namespace mainProgram
             var parser = new FileNameParser();
 
             Console.Write("Separator(default is '_'): ");
-            char separator = (char)Console.Read();
+            var separator = (char)Console.Read();
             if (separator != 13)
                 parser.Separator = separator;
 
             SampleMap map = new SampleMap();
 
-            string[] firstFile = parser.SplitName(files[0]);
-            char[] lut = new char[firstFile.Length];
+            var firstFile = parser.SplitName(files[0]);
+            var lut = new char[firstFile.Length];
             for (int i = 0; i < lut.Length; i++)
                 lut[i] = (map.MidiNotes.Contains(firstFile[i]))? '1': '2';
 
@@ -67,7 +67,7 @@ namespace mainProgram
                 throw new InvalidDataException();
             }
             
-            foreach(string file in files)
+            foreach(var file in files)
             {
                 string rootNote="";
                 var groupName = new List<string>();
@@ -87,7 +87,7 @@ namespace mainProgram
                     }
                 }
                 var region = new Region(file, rootNote);
-                map.AddRegion(region, (groupName.Count != 0) ? string.Join(' ', groupName) : "default group");
+                map.AddRegion(region, groupName.Count != 0 ? string.Join(' ', groupName) : "default group");
             }
             map.SortRegions();
 
@@ -99,7 +99,7 @@ namespace mainProgram
             Console.WriteLine(string.Join('\n', map.Groups[0].Regions));
 #endif
             Console.WriteLine("Possible stretch modes: ");
-            Console.WriteLine("0 = no strech");
+            Console.WriteLine("0 = no stretch");
             Console.WriteLine("1 = stretch down");
             Console.WriteLine("2 = stretch up\n");
 
@@ -132,7 +132,8 @@ namespace mainProgram
                 return defaultValue;
             return value;
         }
-        public static string LineInput(string str, string[] choices, string defaultValue)
+
+        private static string LineInput(string str, string[] choices, string defaultValue)
         {
             Console.Write(str);
             var value = Console.ReadLine();
