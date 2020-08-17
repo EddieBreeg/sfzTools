@@ -10,15 +10,17 @@ namespace fileNameParser.SampleMap
     class SampleMap
     {
         public readonly string[] MidiNotes = new string[128];
-        public readonly List<SampleGroup> Groups = new List<SampleGroup>();
+        public List<SampleGroup> Groups = new List<SampleGroup>();
         //public List<string> DynamicLevels = new List<string>();
         //public List<string> Articulations = new List<string>();
         //public List<string> RoundRobins = new List<string>();
         public SampleMap()
         {
-            string[] notes = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
-            for (int i = 0; i < MidiNotes.Length; i++)
-                MidiNotes[i] = $"{notes[i % 12]} {i / 12}";
+            string[] names = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
+            for (int i=0; i<128; i++)
+            {
+                MidiNotes[i] = names[i % 12] + Convert.ToString(i/12);
+            }
         }
         public void AddRegion(Region region, string groupName)
         {
@@ -27,11 +29,11 @@ namespace fileNameParser.SampleMap
                 Groups[index].Regions.Add(region);
             else
             {
-                var g = new SampleGroup(groupName, region);
+                SampleGroup g = new SampleGroup(groupName, region);
                 Groups.Add(g);
             }
         }
-        private int FindGroup(string groupName)
+        int FindGroup(string groupName)
         {
             for(int i=0; i<Groups.Count;i++)
             {
@@ -42,12 +44,12 @@ namespace fileNameParser.SampleMap
         }
         public void SortRegions()
         {
-            foreach (var g in Groups)
+            foreach (SampleGroup g in Groups)
                 g.SortRegions();
         }
         public void StretchRegions(char mode)
         {
-            foreach (var g in Groups)
+            foreach (SampleGroup g in Groups)
             {
                 switch (mode)
                 {
@@ -68,45 +70,56 @@ namespace fileNameParser.SampleMap
         }
         public string Render(string defaultPath)
         {
-            var result = $"<control>\ndefault_path={Path.GetFileNameWithoutExtension(defaultPath)}/\n\n";
-            return Groups.Aggregate(result, (current, g) => current + g.Render());
+            string result = $"<control>\ndefault_path={Path.GetFileNameWithoutExtension(defaultPath)}/\n\n";
+            foreach (SampleGroup g in Groups)
+                result += g.Render();
+            return result;
         }
     }
 
     class SampleGroup
     {
-        public readonly List<Region> Regions = new List<Region>();
+        public List<Region> Regions = new List<Region>();
         public string Name;
-        public SampleGroup(string name) { Name = name; }
+        public SampleGroup(string name)
+        {
+            Name = name;
+        }
         public SampleGroup(string name, Region region)
         {
             Name = name;
             Regions.Add(region);
         }
-#if (DEBUG)
-        public override string ToString() => Name;
-#endif
-        public void SortRegions() { Regions.Sort(); }
-      
+        public override string ToString()
+        {
+            return Name;
+        }
+        public void SortRegions()
+        {
+            Regions.Sort();
+        }
         public string Render()
 
         {
-            var result = $"<group> //{Name}\n";
-            return Regions.Aggregate(result, (current, region) => current + (region.Render().Indent() + "\n\n"));
+            string result = $"<group> //{Name}\n";
+            foreach (Region region in Regions)
+                result += region.Render().Indent()+"\n\n";
+            return result;
         }
     }
 
-    class Region : IComparable
+    class Region: IComparable
     {
-        private readonly string Root;
-        public int LoKey, HiKey;
-        private readonly string File;
+        public readonly string Root;
+        public int LoKey;
+        public int HiKey;
+        public readonly string File;
         public readonly int MidiNumber;
 
         public Region(string file, string root)
         {
-            var m = new SampleMap();
-            var midiNotes = m.MidiNotes.ToList();
+            SampleMap m = new SampleMap();
+            List<string> midiNotes = m.MidiNotes.ToList();
             File = file;
             Root = root;
             MidiNumber = midiNotes.IndexOf(root);
@@ -114,21 +127,27 @@ namespace fileNameParser.SampleMap
             HiKey = MidiNumber;
             
         }
-#if (DEBUG)
-        public override string ToString() => File;
-#endif
-
+        public override string ToString()
+        {
+            return File;
+        }
         public int CompareTo(object obj)
         {
             if (obj is Region other)
-                return MidiNumber.CompareTo(other.MidiNumber);
-            
-            throw new ArgumentException("Expected a Region object");
+                return this.MidiNumber.CompareTo(other.MidiNumber);
+            else
+                throw new ArgumentException("Excpected a Region object");
         }
         public string Render()
         {
-            var result = $"<region>\n sample={Path.GetFileName(File)}\n pitch_keycenter={Root}\n lokey={LoKey}\n hikey={HiKey}";
+            string result = "<region>\n";
+            result += $"sample={Path.GetFileName(File)}\n";
+            result += $"pitch_keycenter={Root}\n";
+            result += $"lokey={LoKey}\n";
+            result += $"hikey={HiKey}";
+
             return result;
         }
     }
+    
 }
