@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 
-namespace filenameParser.Extensions
+namespace filenameParser.Modules
 {
-    public static class Extensions
+    static class Extensions
     {
         public static string Indent(this string str)
         {

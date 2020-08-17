@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
+using filenameParser.Modules;
 
 namespace filenameParser
 {
@@ -29,7 +30,7 @@ namespace filenameParser
 
             Console.Write("Separator(default is '_'): ");
             var separator = (char)Console.Read();
-            if (separator != 13)
+            if (separator != '\r')
                 parser.Separator = separator;
 
             var map = new SampleMap();

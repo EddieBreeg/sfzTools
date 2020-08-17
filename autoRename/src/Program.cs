@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using filenameParser;
+using filenameParser.Modules;
 
 namespace autoRename
 {
@@ -50,7 +51,7 @@ namespace autoRename
         }
     }
 
-    internal class StructureHandler
+    public class StructureHandler
     {
         public static string[][] SortByDirs(string rootPath, string extension = null)
         {
