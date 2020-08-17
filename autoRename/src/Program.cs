@@ -6,16 +6,6 @@ using filenameParser;
 
 namespace autoRename
 {
-    class StructureHandler
-    {
-        public static string[][] SortByDirs(string rootPath)
-        {
-            var result = new List<string[]> {Directory.GetFiles(rootPath)};
-            Directory.GetDirectories(rootPath).ToList().ForEach(d => result.AddRange(SortByDirs(d)));
-
-            return result.ToArray();
-        }
-    }
     class Program
     {
         public static void Main(string[] args)
@@ -39,6 +29,17 @@ namespace autoRename
             var ext = InputHandler.LineInput("File extension (default is wav): ", extensions, "wav");
 
             var files = StructureHandler.SortByDirs(rootPath);
+        }
+    }
+
+    class StructureHandler
+    {
+        public static string[][] SortByDirs(string rootPath)
+        {
+            var result = new List<string[]> {Directory.GetFiles(rootPath)};
+            Directory.GetDirectories(rootPath).ToList().ForEach(d => result.AddRange(SortByDirs(d)));
+
+            return result.ToArray();
         }
     }
 }
