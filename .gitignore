@@ -7,3 +7,4 @@ bin/
 Dist/
 *.user
 Example/
+*.ps1

@@ -17,50 +17,19 @@ Example
 │   ├───RR1
 │   │       sample1.wav
 │   │       sample2.wav
-│   │       sample3.wav
-│   │       
-│   ├───RR2
-│   │       sample1.wav
-│   │       sample2.wav
-│   │       sample3.wav
-│   │                
-│   └───RR3
+│   │
+│   └───RR2
 │           sample1.wav
 │           sample2.wav
-│           sample3.wav
-│           
-├───level2
-│   ├───RR1
-│   │       sample1.wav
-│   │       sample2.wav
-│   │       sample3.wav
-│   │       
-│   ├───RR2
-│   │       sample1.wav
-│   │       sample2.wav
-│   │       sample3.wav
-│   │       
-│   └───RR3
-│           sample1.wav
-│           sample2.wav
-│           sample3.wav
-│           
-└───level3
+│
+└───level2
     ├───RR1
     │       sample1.wav
     │       sample2.wav
-    │       sample3.wav
-    │       
-    ├───RR2
-    │       sample1.wav
-    │       sample2.wav
-    │       sample3.wav
-    │       
-    └───RR3
+    │
+    └───RR2
             sample1.wav
             sample2.wav
-            sample3.wav
-
 ```
 You don't want to take care of all of this yourself do you? I mean, you can but... what's the point?
 Start by running the program, there is a whole section about that below if you need help.
@@ -74,56 +43,26 @@ The interval: what interval (in semitones) separate samples from each other. The
 
 Finally the file extension, default being wav. DO NOT put a `.` before the extension. This parameter ensures that the program only takes the samples into account and ignores everything else. You never know when you could have some random files laying down in your folders right?
 
-For the sake of this example I'll assume we left everything as default. The program will rename all the samples according to the folder they're in and the note they correspond to. For our case the result would then be:
+For the sake of this example I'll assume we left everything as default except the first note (here I put C1). The program will rename all the samples according to the folder they're in and the note they correspond to. For our case the result would then be:
 ```
 Example
 ├───level1
 │   ├───RR1
-│   │       A#0_level1_RR1.wav
-│   │       C0_level1_RR1.wav
-│   │       F0_level1_RR1.wav
+│   │       C1_level1_RR1.wav
+│   │       F1_level1_RR1.wav
 │   │
-│   ├───RR2
-│   │       A#0_level1_RR2.wav
-│   │       C0_level1_RR2.wav
-│   │       F0_level1_RR2.wav
-│   │
-│   └───RR3
-│           A#0_level1_RR3.wav
-│           C0_level1_RR3.wav
-│           F0_level1_RR3.wav
+│   └───RR2
+│           C1_level1_RR2.wav
+│           F1_level1_RR2.wav
 │
-├───level2
-│   ├───RR1
-│   │       A#0_level2_RR1.wav
-│   │       C0_level2_RR1.wav
-│   │       F0_level2_RR1.wav
-│   │
-│   ├───RR2
-│   │       A#0_level2_RR2.wav
-│   │       C0_level2_RR2.wav
-│   │       F0_level2_RR2.wav
-│   │
-│   └───RR3
-│           A#0_level2_RR3.wav
-│           C0_level2_RR3.wav
-│           F0_level2_RR3.wav
-│
-└───level3
+└───level2
     ├───RR1
-    │       A#0_level3_RR1.wav
-    │       C0_level3_RR1.wav
-    │       F0_level3_RR1.wav
+    │       C1_level2_RR1.wav
+    │       F1_level2_RR1.wav
     │
-    ├───RR2
-    │       A#0_level3_RR2.wav
-    │       C0_level3_RR2.wav
-    │       F0_level3_RR2.wav
-    │
-    └───RR3
-            A#0_level3_RR3.wav
-            C0_level3_RR3.wav
-            F0_level3_RR3.wav
+    └───RR2
+            C1_level2_RR2.wav
+            F1_level2_RR2.wav
 ```
 And that's pretty much all you have to know about **autoRename**!
 
@@ -159,46 +98,21 @@ Here is the resulting folder structure when we apply this program on our example
 ```
 map.sfz
 Example/
-│   A#0_level1_RR1.wav
-│   C0_level1_RR1.wav
-│   F0_level1_RR1.wav
-│   A#0_level1_RR2.wav
-│   C0_level1_RR2.wav
-│   F0_level1_RR2.wav
-│   A#0_level1_RR3.wav
-│   C0_level1_RR3.wav
-│   F0_level1_RR3.wav
-│   A#0_level2_RR1.wav
-│   C0_level2_RR1.wav
-│   F0_level2_RR1.wav
-│   A#0_level2_RR2.wav
-│   C0_level2_RR2.wav
-│   F0_level2_RR2.wav
-│   A#0_level2_RR3.wav
-│   C0_level2_RR3.wav
-│   F0_level2_RR3.wav
-│   A#0_level3_RR1.wav
-│   C0_level3_RR1.wav
-│   F0_level3_RR1.wav
-│   A#0_level3_RR2.wav
-│   C0_level3_RR2.wav
-│   F0_level3_RR2.wav
-│   A#0_level3_RR3.wav
-│   C0_level3_RR3.wav
-│   F0_level3_RR3.wav
+│   C1_level1_RR1.wav
+│   C1_level1_RR2.wav
+│   C1_level2_RR1.wav
+│   C1_level2_RR2.wav
+│   F1_level1_RR1.wav
+│   F1_level1_RR2.wav
+│   F1_level2_RR1.wav
+│   F1_level2_RR2.wav
 │
 ├───level1
 │   ├───RR1
-│   ├───RR2
-│   └───RR3
-├───level2
-│   ├───RR1
-│   ├───RR2
-│   └───RR3
-└───level3
+│   └───RR2
+└───level2
     ├───RR1
-    ├───RR2
-    └───RR3
+    └───RR2
 ```
 And here is the sfz code:
 ```sfz
@@ -206,175 +120,56 @@ And here is the sfz code:
 default_path=Example/
 
 <group> //level1 RR1
-        <region>
-         sample=level1_RR1_C0.wav
-         pitch_keycenter=C0
-         lokey=0
-         hikey=0
+	<region>
+	 sample=C1_level1_RR1.wav
+	 pitch_keycenter=C1
+	 lokey=12
+	 hikey=12
 
-        <region>
-         sample=level1_RR1_F0.wav
-         pitch_keycenter=F0
-         lokey=1
-         hikey=5
-
-        <region>
-         sample=level1_RR1_A#0.wav
-         pitch_keycenter=A#0
-         lokey=6
-         hikey=10
+	<region>
+	 sample=F1_level1_RR1.wav
+	 pitch_keycenter=F1
+	 lokey=13
+	 hikey=17
 
 <group> //level1 RR2
-        <region>
-         sample=level1_RR2_C0.wav
-         pitch_keycenter=C0
-         lokey=0
-         hikey=0
+	<region>
+	 sample=C1_level1_RR2.wav
+	 pitch_keycenter=C1
+	 lokey=12
+	 hikey=12
 
-        <region>
-         sample=level1_RR2_F0.wav
-         pitch_keycenter=F0
-         lokey=1
-         hikey=5
-
-        <region>
-         sample=level1_RR2_A#0.wav
-         pitch_keycenter=A#0
-         lokey=6
-         hikey=10
-
-<group> //level1 RR3
-        <region>
-         sample=level1_RR3_C0.wav
-         pitch_keycenter=C0
-         lokey=0
-         hikey=0
-
-        <region>
-         sample=level1_RR3_F0.wav
-         pitch_keycenter=F0
-         lokey=1
-         hikey=5
-
-        <region>
-         sample=level1_RR3_A#0.wav
-         pitch_keycenter=A#0
-         lokey=6
-         hikey=10
+	<region>
+	 sample=F1_level1_RR2.wav
+	 pitch_keycenter=F1
+	 lokey=13
+	 hikey=17
 
 <group> //level2 RR1
-        <region>
-         sample=level2_RR1_C0.wav
-         pitch_keycenter=C0
-         lokey=0
-         hikey=0
+	<region>
+	 sample=C1_level2_RR1.wav
+	 pitch_keycenter=C1
+	 lokey=12
+	 hikey=12
 
-        <region>
-         sample=level2_RR1_F0.wav
-         pitch_keycenter=F0
-         lokey=1
-         hikey=5
-
-        <region>
-         sample=level2_RR1_A#0.wav
-         pitch_keycenter=A#0
-         lokey=6
-         hikey=10
+	<region>
+	 sample=F1_level2_RR1.wav
+	 pitch_keycenter=F1
+	 lokey=13
+	 hikey=17
 
 <group> //level2 RR2
-        <region>
-         sample=level2_RR2_C0.wav
-         pitch_keycenter=C0
-         lokey=0
-         hikey=0
+	<region>
+	 sample=C1_level2_RR2.wav
+	 pitch_keycenter=C1
+	 lokey=12
+	 hikey=12
 
-        <region>
-         sample=level2_RR2_F0.wav
-         pitch_keycenter=F0
-         lokey=1
-         hikey=5
-
-        <region>
-         sample=level2_RR2_A#0.wav
-         pitch_keycenter=A#0
-         lokey=6
-         hikey=10
-
-<group> //level2 RR3
-        <region>
-         sample=level2_RR3_C0.wav
-         pitch_keycenter=C0
-         lokey=0
-         hikey=0
-
-        <region>
-         sample=level2_RR3_F0.wav
-         pitch_keycenter=F0
-         lokey=1
-         hikey=5
-
-        <region>
-         sample=level2_RR3_A#0.wav
-         pitch_keycenter=A#0
-         lokey=6
-         hikey=10
-
-<group> //level3 RR1
-        <region>
-         sample=level3_RR1_C0.wav
-         pitch_keycenter=C0
-         lokey=0
-         hikey=0
-
-        <region>
-         sample=level3_RR1_F0.wav
-         pitch_keycenter=F0
-         lokey=1
-         hikey=5
-
-        <region>
-         sample=level3_RR1_A#0.wav
-         pitch_keycenter=A#0
-         lokey=6
-         hikey=10
-
-<group> //level3 RR2
-        <region>
-         sample=level3_RR2_C0.wav
-         pitch_keycenter=C0
-         lokey=0
-         hikey=0
-
-        <region>
-         sample=level3_RR2_F0.wav
-         pitch_keycenter=F0
-         lokey=1
-         hikey=5
-
-        <region>
-         sample=level3_RR2_A#0.wav
-         pitch_keycenter=A#0
-         lokey=6
-         hikey=10
-
-<group> //level3 RR3
-        <region>
-         sample=level3_RR3_C0.wav
-         pitch_keycenter=C0
-         lokey=0
-         hikey=0
-
-        <region>
-         sample=level3_RR3_F0.wav
-         pitch_keycenter=F0
-         lokey=1
-         hikey=5
-
-        <region>
-         sample=level3_RR3_A#0.wav
-         pitch_keycenter=A#0
-         lokey=6
-         hikey=10
+	<region>
+	 sample=F1_level2_RR2.wav
+	 pitch_keycenter=F1
+	 lokey=13
+	 hikey=17
 ```
 
 As you can see the program doesn't generate velocity values, or round robins... those are things you still have to do yourself unfortunately. But still, hopefully this little program should make you gain a ton of time.
