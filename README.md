@@ -15,52 +15,52 @@ Let's assume that you have recorded samples from an instrument, a piano for exam
 Example
 ├───level1
 │   ├───RR1
-│   │       sample1
-│   │       sample2
-│   │       sample3
-│   │       ...
+│   │       sample1.wav
+│   │       sample2.wav
+│   │       sample3.wav
+│   │       
 │   ├───RR2
-│   │       sample1
-│   │       sample2
-│   │       sample3
-│   │       ...         
+│   │       sample1.wav
+│   │       sample2.wav
+│   │       sample3.wav
+│   │                
 │   └───RR3
-│           sample1
-│           sample2
-│           sample3
-│           ...
+│           sample1.wav
+│           sample2.wav
+│           sample3.wav
+│           
 ├───level2
 │   ├───RR1
 │   │       sample1.wav
 │   │       sample2.wav
 │   │       sample3.wav
-│   │       ...
+│   │       
 │   ├───RR2
 │   │       sample1.wav
 │   │       sample2.wav
 │   │       sample3.wav
-│   │       ...
+│   │       
 │   └───RR3
 │           sample1.wav
 │           sample2.wav
 │           sample3.wav
-│           ...
+│           
 └───level3
     ├───RR1
     │       sample1.wav
     │       sample2.wav
     │       sample3.wav
-    │       ...
+    │       
     ├───RR2
     │       sample1.wav
     │       sample2.wav
     │       sample3.wav
-    │       ...
+    │       
     └───RR3
             sample1.wav
             sample2.wav
             sample3.wav
-            ...
+
 ```
 You don't want to take care of all of this yourself do you? I mean, you can but... what's the point?
 Start by running the program, there is a whole section about that below if you need help.
@@ -79,52 +79,51 @@ For the sake of this example I'll assume we left everything as default. The prog
 Example
 ├───level1
 │   ├───RR1
-│   │       level1_RR1_A#0.wav
-│   │       level1_RR1_C0.wav
-│   │       level1_RR1_F0.wav
-│   │       ...
+│   │       A#0_level1_RR1.wav
+│   │       C0_level1_RR1.wav
+│   │       F0_level1_RR1.wav
+│   │
 │   ├───RR2
-│   │       level1_RR2_A#0.wav
-│   │       level1_RR2_C0.wav
-│   │       level1_RR2_F0.wav
-│   │       ...
+│   │       A#0_level1_RR2.wav
+│   │       C0_level1_RR2.wav
+│   │       F0_level1_RR2.wav
+│   │
 │   └───RR3
-│           level1_RR3_A#0.wav
-│           level1_RR3_C0.wav
-│           level1_RR3_F0.wav
-│           ...
+│           A#0_level1_RR3.wav
+│           C0_level1_RR3.wav
+│           F0_level1_RR3.wav
+│
 ├───level2
 │   ├───RR1
-│   │       level2_RR1_A#0.wav
-│   │       level2_RR1_C0.wav
-│   │       level2_RR1_F0.wav
-│   │       ...
+│   │       A#0_level2_RR1.wav
+│   │       C0_level2_RR1.wav
+│   │       F0_level2_RR1.wav
+│   │
 │   ├───RR2
-│   │       level2_RR2_A#0.wav
-│   │       level2_RR2_C0.wav
-│   │       level2_RR2_F0.wav
-│   │       ...
+│   │       A#0_level2_RR2.wav
+│   │       C0_level2_RR2.wav
+│   │       F0_level2_RR2.wav
+│   │
 │   └───RR3
-│           level2_RR3_A#0.wav
-│           level2_RR3_C0.wav
-│           level2_RR3_F0.wav
-│           ...
+│           A#0_level2_RR3.wav
+│           C0_level2_RR3.wav
+│           F0_level2_RR3.wav
+│
 └───level3
     ├───RR1
-    │       level3_RR1_A#0.wav
-    │       level3_RR1_C0.wav
-    │       level3_RR1_F0.wav
+    │       A#0_level3_RR1.wav
+    │       C0_level3_RR1.wav
+    │       F0_level3_RR1.wav
     │
     ├───RR2
-    │       level3_RR2_A#0.wav
-    │       level3_RR2_C0.wav
-    │       level3_RR2_F0.wav
-    │       ...
+    │       A#0_level3_RR2.wav
+    │       C0_level3_RR2.wav
+    │       F0_level3_RR2.wav
+    │
     └───RR3
-            level3_RR3_A#0.wav
-            level3_RR3_C0.wav
-            level3_RR3_F0.wav
-            ...
+            A#0_level3_RR3.wav
+            C0_level3_RR3.wav
+            F0_level3_RR3.wav
 ```
 And that's pretty much all you have to know about **autoRename**!
 
@@ -147,7 +146,7 @@ The parser will then analyze filenames to find tokens. It will show you the toke
 
 Normally the program automatically finds the note name, and puts the default value at 2 for everything else.
 Note that every samples MUST have at least the note name for the program to work.\
-Also note that, if loading samples with different amounts of tokens can work, it is not recommended. If you do it anyway, I'd advise you to make sure that the note name is at the start everywhere so that the program can find it.
+Also note that, if loading samples with different amounts of tokens can work, I wouldn't recommend it. If you do it anyway, I'd advise you to make sure that the note name is at the start everywhere so that the program can find it. It could be useful for things like release triggers for example.
 
 Finally, the stretch mode describes how the samples should be stretched across the keyboard.
 - 0 = No stretch: each sample will only be mapped to the corresponding key
@@ -160,33 +159,33 @@ Here is the resulting folder structure when we apply this program on our example
 ```
 map.sfz
 Example/
-│   level1_RR1_A#0.wav
-│   level1_RR1_C0.wav
-│   level1_RR1_F0.wav
-│   level1_RR2_A#0.wav
-│   level1_RR2_C0.wav
-│   level1_RR2_F0.wav
-│   level1_RR3_A#0.wav
-│   level1_RR3_C0.wav
-│   level1_RR3_F0.wav
-│   level2_RR1_A#0.wav
-│   level2_RR1_C0.wav
-│   level2_RR1_F0.wav
-│   level2_RR2_A#0.wav
-│   level2_RR2_C0.wav
-│   level2_RR2_F0.wav
-│   level2_RR3_A#0.wav
-│   level2_RR3_C0.wav
-│   level2_RR3_F0.wav
-│   level3_RR1_A#0.wav
-│   level3_RR1_C0.wav
-│   level3_RR1_F0.wav
-│   level3_RR2_A#0.wav
-│   level3_RR2_C0.wav
-│   level3_RR2_F0.wav
-│   level3_RR3_A#0.wav
-│   level3_RR3_C0.wav
-│   level3_RR3_F0.wav
+│   A#0_level1_RR1.wav
+│   C0_level1_RR1.wav
+│   F0_level1_RR1.wav
+│   A#0_level1_RR2.wav
+│   C0_level1_RR2.wav
+│   F0_level1_RR2.wav
+│   A#0_level1_RR3.wav
+│   C0_level1_RR3.wav
+│   F0_level1_RR3.wav
+│   A#0_level2_RR1.wav
+│   C0_level2_RR1.wav
+│   F0_level2_RR1.wav
+│   A#0_level2_RR2.wav
+│   C0_level2_RR2.wav
+│   F0_level2_RR2.wav
+│   A#0_level2_RR3.wav
+│   C0_level2_RR3.wav
+│   F0_level2_RR3.wav
+│   A#0_level3_RR1.wav
+│   C0_level3_RR1.wav
+│   F0_level3_RR1.wav
+│   A#0_level3_RR2.wav
+│   C0_level3_RR2.wav
+│   F0_level3_RR2.wav
+│   A#0_level3_RR3.wav
+│   C0_level3_RR3.wav
+│   F0_level3_RR3.wav
 │
 ├───level1
 │   ├───RR1
@@ -383,10 +382,10 @@ As you can see the program doesn't generate velocity values, or round robins... 
 ### Nota bene: how to run these programs on your operating system?
 
 #### Windows
-For Windows it couldn't be easier: double click it.
+Seriously, it couldn't be easier: double click it.
 
 #### Linux
-The Linux versions are provided with .desktop files to make things easier. Simply double click the .desktop file. You will probably be prompted with a warning telling you the software is not trusted... fair enough I guess. You have the source code available anyway, so nothing to be scared of. Simply confirm and it *should* work.
+The Linux versions are provided with .desktop files to make things easier. Simply double click the .desktop file. You will probably be prompted with a warning telling you the software is not trusted... fair enough I guess. You have the source code available anyway, so nothing to be scared of. Simply confirm and it *should* work. Make sure the desktop file stays in the same directory as the executable, otherwise you will have to edit the shortcut to point to the new location.
 
 #### Mac
-I'm not familiar with Mac so unfortunately (for now) you will need to launch a terminal, and run the program through there. To do so, use the `cd` command to get to the folder where the executables are located. Then type `./the_name_of_the_file` and it will launch!
+Similarly as for the Linux versions, the MacOS versions come with .command files you can double click to run the programs. If the .command file is not in the same folder as the executable, you'll need to edit it to update the path.

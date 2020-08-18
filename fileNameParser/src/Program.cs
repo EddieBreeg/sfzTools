@@ -35,7 +35,7 @@ namespace filenameParser
 
             var map = new SampleMap();
 
-            var firstFile = parser.SplitName(files[0]);
+            var firstFile = parser.SplitName(parser.FindLongestName(files));
             var lut = new char[firstFile.Length];
             for (var i = 0; i < lut.Length; i++)
                 lut[i] = map.MidiNotes.Contains(firstFile[i]) ? '1': '2';
