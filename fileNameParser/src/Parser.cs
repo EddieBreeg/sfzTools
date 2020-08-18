@@ -12,9 +12,10 @@ namespace filenameParser
 
         public string FindLongestName(List<string> filenames)
         {
-            string longest = filenames[0];
-            foreach (string file in filenames)
+            var longest = filenames[0];
+            foreach (var file in filenames)
                 if (SplitName(file).Length > SplitName(longest).Length) longest = file;
+            
             return longest;
         }
     }
