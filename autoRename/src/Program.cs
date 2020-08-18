@@ -34,8 +34,8 @@ namespace autoRename
                 int midiValue = map.MidiNotes.ToList().IndexOf(firstNote);
                 foreach (var file in dir)
                 {
-                    string prefix = Path.GetRelativePath(rootPath, Path.GetDirectoryName(file)).Replace(Path.DirectorySeparatorChar, '_');
-                    File.Move(file, Path.Combine(Path.GetDirectoryName(file), $"{prefix}_{map.MidiNotes[midiValue]}{ext}"));
+                    string suffix = Path.GetRelativePath(rootPath, Path.GetDirectoryName(file)).Replace(Path.DirectorySeparatorChar, '_');
+                    File.Move(file, Path.Combine(Path.GetDirectoryName(file), $"{map.MidiNotes[midiValue]}_{suffix}{ext}"));
                     midiValue += interval;
                 }
             }
@@ -48,28 +48,6 @@ namespace autoRename
                 Console.WriteLine('\n');
             }
 #endif
-        }
-    }
-
-    public class StructureHandler
-    {
-        public static string[][] SortByDirs(string rootPath, string extension = null)
-        {
-            var result = new List<string[]> {extension != null? ByExtension(rootPath, extension): Directory.GetFiles(rootPath)};
-            Directory.GetDirectories(rootPath).ToList().ForEach(d => result.AddRange(SortByDirs(d, extension)));
-
-            return result.ToArray();
-        }
-
-        public static string[] ByExtension(string path, string extension)
-        {
-            var files = new List<string>();
-            foreach (var file in Directory.GetFiles(path))
-            {
-                if (Path.GetExtension(file).ToLower() == extension.ToLower())
-                    files.Add(file);
-            }
-            return files.ToArray();
         }
     }
 }

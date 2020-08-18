@@ -4,4 +4,6 @@ obj/
 Properties
 bin/
 *.cmd
+Dist/
 *.user
+Example/
