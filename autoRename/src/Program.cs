@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using filenameParser;
 using filenameParser.Modules;
+using autoRename.Modules;
 
 namespace autoRename
 {
@@ -31,10 +31,10 @@ namespace autoRename
             var files = StructureHandler.SortByDirs(rootPath, ext);
             foreach(var dir in files)
             {
-                int midiValue = map.MidiNotes.ToList().IndexOf(firstNote);
+                var midiValue = map.MidiNotes.ToList().IndexOf(firstNote);
                 foreach (var file in dir)
                 {
-                    string suffix = Path.GetRelativePath(rootPath, Path.GetDirectoryName(file)).Replace(Path.DirectorySeparatorChar, '_');
+                    var suffix = Path.GetRelativePath(rootPath, Path.GetDirectoryName(file)).Replace(Path.DirectorySeparatorChar, '_');
                     File.Move(file, Path.Combine(Path.GetDirectoryName(file), $"{map.MidiNotes[midiValue]}_{suffix}{ext}"));
                     midiValue += interval;
                 }
