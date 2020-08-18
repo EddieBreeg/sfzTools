@@ -34,8 +34,8 @@ namespace autoRename
                 int midiValue = map.MidiNotes.ToList().IndexOf(firstNote);
                 foreach (var file in dir)
                 {
-                    string prefix = Path.GetRelativePath(rootPath, Path.GetDirectoryName(file)).Replace(Path.DirectorySeparatorChar, '_');
-                    File.Move(file, Path.Combine(Path.GetDirectoryName(file), $"{prefix}_{map.MidiNotes[midiValue]}{ext}"));
+                    string suffix = Path.GetRelativePath(rootPath, Path.GetDirectoryName(file)).Replace(Path.DirectorySeparatorChar, '_');
+                    File.Move(file, Path.Combine(Path.GetDirectoryName(file), $"{map.MidiNotes[midiValue]}_{suffix}{ext}"));
                     midiValue += interval;
                 }
             }
