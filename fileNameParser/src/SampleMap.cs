@@ -52,12 +52,12 @@ namespace filenameParser
                 switch (mode)
                 {
                     case '1':
-                        g.Regions[0].loKey = 0;
+                        //g.Regions[0].loKey = 0;
                         for (var i = 1; i < g.Regions.Count; i++)
                             g.Regions[i].loKey = g.Regions[i - 1].midiNumber + 1;
                         break;
                     case '2':
-                        g.Regions[^1].hiKey = MidiNotes.Length - 1;
+                        //g.Regions[^1].hiKey = MidiNotes.Length - 1;
                         for (var i = 0; i < g.Regions.Count-1; i++)
                             g.Regions[i].hiKey = g.Regions[i + 1].midiNumber - 1;
                         break;
