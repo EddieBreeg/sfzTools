@@ -34,5 +34,12 @@ namespace filenameParser.Modules
                 return defaultValue;
             return value;
         }
+        public static string LineInput(string str, string defaultValue = null)
+        {
+            Console.Write(str);
+            var input = Console.ReadLine();
+            if (defaultValue != null) return input != "" ? input : defaultValue;
+            return input;
+        }
     }
 }

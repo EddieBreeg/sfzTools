@@ -11,9 +11,8 @@ namespace filenameParser
     {
         public string[] MidiNotes { get; } = new string[128];
         public List<SampleGroup> Groups { get; } = new List<SampleGroup>();
-        //public List<string> DynamicLevels = new List<string>();
-        //public List<string> Articulations = new List<string>();
-        //public List<string> RoundRobins = new List<string>();
+        public int SequenceLength { get; set; }
+        private Dictionary<string, string> _vars = new Dictionary<string, string>();
         public SampleMap()
         {
             string[] notes = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
@@ -52,12 +51,10 @@ namespace filenameParser
                 switch (mode)
                 {
                     case '1':
-                        //g.Regions[0].loKey = 0;
                         for (var i = 1; i < g.Regions.Count; i++)
                             g.Regions[i].loKey = g.Regions[i - 1].midiNumber + 1;
                         break;
                     case '2':
-                        //g.Regions[^1].hiKey = MidiNotes.Length - 1;
                         for (var i = 0; i < g.Regions.Count-1; i++)
                             g.Regions[i].hiKey = g.Regions[i + 1].midiNumber - 1;
                         break;
@@ -69,6 +66,7 @@ namespace filenameParser
         public string Render(string defaultPath)
         {
             var result = $"<control>\ndefault_path={Path.GetFileNameWithoutExtension(defaultPath)}/\n\n";
+            _vars.Keys.ToList().ForEach(name => result += $"#define ${name} {_vars[name]}\n");
             Groups.ForEach(group => result += group.Render());
             return result;
         }
@@ -78,12 +76,26 @@ namespace filenameParser
     {
         public List<Region> Regions { get; } = new List<Region>();
         public readonly string name;
+        public readonly string articulation, dynLevel, roundRobin;
+        public string VarPrefix { get => name.ToUpper().Replace(' ', '_'); }
+        public int? SequencePosition { get; set; }
+        public int? LoVel { get; set; }
+        public int? HiVel { get; set; }
+
         public SampleGroup(string name) => this.name = name;
         public SampleGroup(string name, Region region)
         {
             this.name = name;
             Regions.Add(region);
         }
+        public SampleGroup(string articulation, string dynLevel, string roundRobin)
+        {
+            name = $"{articulation} {dynLevel} {roundRobin}";
+            this.articulation = articulation;
+            this.dynLevel = dynLevel;
+            this.roundRobin = roundRobin;
+        }
+
 #if (DEBUG)
         public override string ToString() => name;
 #endif
@@ -102,7 +114,8 @@ namespace filenameParser
         private readonly string _root;
         internal int loKey, hiKey;
         private readonly string _file;
-        internal readonly int midiNumber;
+        public readonly int midiNumber;
+        public int SequencePosition, LoVel, HiVel;
 
         public Region(string file, string root)
         {
