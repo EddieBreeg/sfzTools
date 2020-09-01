@@ -13,7 +13,7 @@ namespace filenameParser
         public string[] MidiNotes { get; } = new string[128];
         public List<SampleGroup> Groups { get; } = new List<SampleGroup>();
         public int? SequenceLength { get; set; }
-        private Dictionary<string, string> _vars = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _vars = new Dictionary<string, string>();
         public SampleMap()
         {
             string[] notes = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
@@ -128,7 +128,7 @@ namespace filenameParser
     {
         private readonly string _root;
         internal int loKey, hiKey;
-        private string _file;
+        private readonly string _file;
         public readonly int midiNumber;
         public int SequencePosition, LoVel, HiVel;
         public string Sample { get => _file; }

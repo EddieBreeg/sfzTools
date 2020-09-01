@@ -6,11 +6,23 @@ using filenameParser.Modules;
 using autoRename.Modules;
 using autoBuilder.Modules;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace autoBuilder
 {
-    class Program
+    public class Program
     {
+        public static int[] SplitRange(int min, int max, int divider)
+        {
+            var result = new int[divider * 2];
+            result[0] = min;
+            for(int i =0; i<divider; i++)
+                result[2 * i + 1] = min + (max - min) / divider * (i+1);
+            for (int i = 2; i < divider * 2 - 1; i += 2)
+                result[i] = result[i - 1] + 1;
+            result[^1] = max;
+            return result;
+        }
         public static void Main()
         {
             var path = InputHandler.LineInput("Path: ").Replace("\"", "");
@@ -55,12 +67,6 @@ namespace autoBuilder
             var totalGroupCount = rrCount * articulationsCount * dynLevelsCount;
             int noteCountPerGroup = InputHandler.NumberInput("Number of notes per group: ");
 
-
-            var lut = InputHandler.ListInput("Hierarchy: ",
-                new List<int>() { 0, 1, 2, 3 }, 
-                l => l.IsPermutation() && l.Count == 4);
-
-
             int firstNote = map.MidiNotes.ToList().IndexOf(
                 InputHandler.LineInput("First note in each group (default is C0): ", map.MidiNotes, "C0"));
 
@@ -68,14 +74,24 @@ namespace autoBuilder
             char stretchMode = 
                 InputHandler.KeyInput("Stretch mode (default is 1): ", new char[] { '0', '1', '2' }, '1');
 
+            Console.WriteLine("\nFinally I need to know what hierarchy you have used to sort the samples: ");
+            Console.WriteLine("0 = articulation\n" +
+                                "1 = dynamic level\n" +
+                                "2 = round robin\n" +
+                                "3 = note name");
+            Console.WriteLine("Please read the documentation for full details! ");
+            var lut = InputHandler.ListInput("Hierarchy (default is \"0 1 2 3\"): ",
+                new List<int>() { 0, 1, 2, 3 }, 
+                l => l.IsPermutation() && l.Count == 4);
+
             for(int i=0; i<articulationsCount; i++)
                 for(int j=0; j<dynLevelsCount;j++)
                     for(int k=0; k<rrCount;k++)
                     {
-                        int loVel = 127 / dynLevelsCount * j;
-                        int hiVel = 127 / dynLevelsCount * (j + 1);
+                        int loVel = SplitRange(0, 127, dynLevelsCount)[2 * j];
+                        int hiVel = SplitRange(0, 127, dynLevelsCount)[2 * j + 1];
                         int sequencePos = k+1;
-                        var group = new SampleGroup(articulations[i], dynLayers[j], roundRobins[k]);
+                        SampleGroup group = new SampleGroup(articulations[i], dynLayers[j], roundRobins[k]);
                         group.SequencePosition = sequencePos;
                         group.LoVel = loVel;
                         group.HiVel = hiVel;
@@ -101,7 +117,8 @@ namespace autoBuilder
                 string rootNote = map.MidiNotes[firstNote + interval * file.HierachyLabels[3]];
                 string newName = $"{groupName.Replace(' ', '_')}_{rootNote}{extension}";
                 map.AddRegion(new Region(newName, rootNote), groupName);
-
+                File.Move(file.Path,
+                    Path.Join(path, newName));
             }
             var remainingFiles = filesList.GetRange(
                 totalGroupCount * noteCountPerGroup,
@@ -119,17 +136,6 @@ namespace autoBuilder
             map.CreateVars();
             string outputPath = Path.Join(Path.GetDirectoryName(path), "map.sfz");
             File.WriteAllText(outputPath, map.Render(path));
-
-
-#if(DEBUG)
-            //remainingFiles.ForEach(f => Console.WriteLine(f));
-#endif
-            //if (remainingFiles.Count > 0)
-            //{
-            //    map.Groups.Add(new SampleGroup("remaining samples"));
-            //    foreach(var f in remainingFiles)
-            //        map.AddRegion(new Region)
-            //}
         }
     }
 }
