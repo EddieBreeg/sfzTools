@@ -20,7 +20,7 @@ namespace autoRename.Modules
             var files = new List<string>();
             foreach (var file in Directory.GetFiles(path))
             {
-                if (Path.GetExtension(file).Equals(extension, StringComparison.CurrentCultureIgnoreCase))
+                if (Path.GetExtension(file).Equals(extension, StringComparison.OrdinalIgnoreCase))
                     files.Add(file);
             }
             return files;

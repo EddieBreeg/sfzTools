@@ -9,3 +9,4 @@ Dist/
 Example/
 *.ps1
 /HierarchyTest
+testArgs.txt

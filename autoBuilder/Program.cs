@@ -5,7 +5,7 @@ using filenameParser;
 using filenameParser.Modules;
 using autoRename.Modules;
 using autoBuilder.Modules;
-
+using System.Linq;
 
 namespace autoBuilder
 {
@@ -14,6 +14,7 @@ namespace autoBuilder
         public static void Main()
         {
             var path = InputHandler.LineInput("Path: ").Replace("\"", "");
+
             while (!Directory.Exists(path))
             {
                 Console.WriteLine($"{path}: no such directory!");
@@ -21,6 +22,8 @@ namespace autoBuilder
             }
             var extension = "." + InputHandler.LineInput(
                 "Extension(default is wav): ", new string[] { "wav", "mp3", "ogg", "flac" }, "wav");
+            var filesList = StructureHandler.ByExtension(path, extension);
+            filesList.Sort(new NumericalStringComparer());
 
             var map = new SampleMap();
             int articulationsCount = Convert.ToInt32(InputHandler.LineInput(
@@ -49,17 +52,84 @@ namespace autoBuilder
                 roundRobins.Add(InputHandler.LineInput(
                     $"RR{i} name: ", $"RR{i}"));
             }
+            var totalGroupCount = rrCount * articulationsCount * dynLevelsCount;
+            int noteCountPerGroup = InputHandler.NumberInput("Number of notes per group: ");
 
-            foreach (var articulation in articulations)
+
+            var lut = InputHandler.ListInput("Hierarchy: ",
+                new List<int>() { 0, 1, 2, 3 }, 
+                l => l.IsPermutation() && l.Count == 4);
+
+
+            int firstNote = map.MidiNotes.ToList().IndexOf(
+                InputHandler.LineInput("First note in each group (default is C0): ", map.MidiNotes, "C0"));
+
+            int interval = InputHandler.NumberInput("Interval between notes (in semitones, default is 5): ", 5);
+            char stretchMode = 
+                InputHandler.KeyInput("Stretch mode (default is 1): ", new char[] { '0', '1', '2' }, '1');
+
+            for(int i=0; i<articulationsCount; i++)
+                for(int j=0; j<dynLevelsCount;j++)
+                    for(int k=0; k<rrCount;k++)
+                    {
+                        int loVel = 127 / dynLevelsCount * j;
+                        int hiVel = 127 / dynLevelsCount * (j + 1);
+                        int sequencePos = k+1;
+                        var group = new SampleGroup(articulations[i], dynLayers[j], roundRobins[k]);
+                        group.SequencePosition = sequencePos;
+                        group.LoVel = loVel;
+                        group.HiVel = hiVel;
+                        map.Groups.Add(group);
+                    }
+            var files = new HierarchyHandler(filesList.GetRange(0, totalGroupCount * noteCountPerGroup));
+            files.GroupsPerLevel = 
+                ListModules<int>.Permute(new List<int>() { articulationsCount, dynLevelsCount, rrCount, noteCountPerGroup },
+                lut);
+            //files.GroupsPerLevel.ForEach(x => Console.WriteLine(x));
+            files.LabelFiles();
+            foreach(LabeledFile file in files)
             {
-                foreach(var dynLayer in dynLayers)
-                {
-                    foreach (var rr in roundRobins)
-                        map.Groups.Add(new SampleGroup(articulation, dynLayer, rr));
-                }
+                file.HierachyLabels.RemoveAt(4);
+                file.HierachyLabels = ListModules<int>.Permute(file.HierachyLabels, lut.FlipPermutation());
             }
-            var files = new HierarchyHandler(StructureHandler.ByExtension(path, extension));
-            
+            files.Sort();
+            foreach(LabeledFile file in files)
+            {
+                string groupName = articulations[file.HierachyLabels[0]] + " " +
+                    dynLayers[file.HierachyLabels[1]] + " " +
+                    roundRobins[file.HierachyLabels[2]];
+                string rootNote = map.MidiNotes[firstNote + interval * file.HierachyLabels[3]];
+                string newName = $"{groupName.Replace(' ', '_')}_{rootNote}{extension}";
+                map.AddRegion(new Region(newName, rootNote), groupName);
+
+            }
+            var remainingFiles = filesList.GetRange(
+                totalGroupCount * noteCountPerGroup,
+                filesList.Count % (totalGroupCount * noteCountPerGroup));
+            if(remainingFiles.Count!=0)
+            {
+                var remainingGroup = new SampleGroup("remaining");
+                for (int i = 0; i < remainingFiles.Count; i++)
+                    remainingGroup.Regions.Add(new Region(
+                        Path.GetRelativePath(path, remainingFiles[i]),
+                        map.MidiNotes[firstNote + i * interval]));
+            }
+            map.StretchRegions(stretchMode);
+            map.SequenceLength = rrCount;
+            map.CreateVars();
+            string outputPath = Path.Join(Path.GetDirectoryName(path), "map.sfz");
+            File.WriteAllText(outputPath, map.Render(path));
+
+
+#if(DEBUG)
+            //remainingFiles.ForEach(f => Console.WriteLine(f));
+#endif
+            //if (remainingFiles.Count > 0)
+            //{
+            //    map.Groups.Add(new SampleGroup("remaining samples"));
+            //    foreach(var f in remainingFiles)
+            //        map.AddRegion(new Region)
+            //}
         }
     }
 }

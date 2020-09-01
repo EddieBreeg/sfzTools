@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,11 +8,11 @@ using filenameParser.Modules;
 namespace filenameParser
 {
 
-    public class SampleMap
+    public class SampleMap: IEnumerable
     {
         public string[] MidiNotes { get; } = new string[128];
         public List<SampleGroup> Groups { get; } = new List<SampleGroup>();
-        public int SequenceLength { get; set; }
+        public int? SequenceLength { get; set; }
         private Dictionary<string, string> _vars = new Dictionary<string, string>();
         public SampleMap()
         {
@@ -28,6 +29,15 @@ namespace filenameParser
             {
                 var g = new SampleGroup(groupName, region);
                 Groups.Add(g);
+            }
+        }
+        public void CreateVars()
+        {
+            foreach (SampleGroup group in Groups)
+            {
+                if (group.HiVel != null) _vars[$"{group.dynLevel}_hivel"] = $"{group.HiVel}";
+                if (group.LoVel != null) _vars[$"{group.dynLevel}_lovel"] = $"{group.LoVel}";
+                if (group.SequencePosition != null) _vars[$"{group.roundRobin}_pos"] = $"{group.SequencePosition}";
             }
         }
         private int FindGroup(string groupName)
@@ -63,10 +73,12 @@ namespace filenameParser
                 }
             }
         }
+        public IEnumerator GetEnumerator() => Groups.GetEnumerator();
         public string Render(string defaultPath)
         {
             var result = $"<control>\ndefault_path={Path.GetFileNameWithoutExtension(defaultPath)}/\n\n";
             _vars.Keys.ToList().ForEach(name => result += $"#define ${name} {_vars[name]}\n");
+            result += SequenceLength != null ? $"\n<global>\nseq_length={SequenceLength}\n\n" : "";
             Groups.ForEach(group => result += group.Render());
             return result;
         }
@@ -104,6 +116,9 @@ namespace filenameParser
         public string Render()
         {
             var result = $"<group> //{name}\n";
+            result += SequencePosition != null ? $"seq_position=${roundRobin}_pos\n" : "";
+            result += LoVel != null ? $"lovel=${dynLevel}_lovel\n" : "";
+            result += HiVel != null ? $"hivel=${dynLevel}_hivel\n" : "";
             Regions.ForEach(r => result += r.Render().Indent() + "\n\n");
             return result;
         }
@@ -113,9 +128,10 @@ namespace filenameParser
     {
         private readonly string _root;
         internal int loKey, hiKey;
-        private readonly string _file;
+        private string _file;
         public readonly int midiNumber;
         public int SequencePosition, LoVel, HiVel;
+        public string Sample { get => _file; }
 
         public Region(string file, string root)
         {

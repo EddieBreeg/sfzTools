@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
 
 namespace autoBuilder.Modules
 {
     public class LabeledFile: IComparable
     {
-        public readonly string Path;
+        public string Path { get; set; }
         public List<int> HierachyLabels = new List<int>();
         public LabeledFile(string path) => Path = path;
         public int CompareTo(object obj)
@@ -23,12 +24,18 @@ namespace autoBuilder.Modules
             }
             throw new ArgumentException("Expected a Hierarchy object");
         }
+        public override string ToString() => $"{string.Join(", ", HierachyLabels)}: {Path}";
     }
-    public class HierarchyHandler
+    public class HierarchyHandler: IEnumerable
     {
-        public List<LabeledFile> Files = new List<LabeledFile>();
+        public List<LabeledFile> Files;
         public List<int> GroupsPerLevel = new List<int>() { 1 };
-        public HierarchyHandler(List<string> files) => files.ForEach(f => Files.Add(new LabeledFile(f)));
+        public HierarchyHandler() => Files = new List<LabeledFile>();
+        public HierarchyHandler(List<string> files)
+        {
+            Files = new List<LabeledFile>(); 
+            files.ForEach(f => Files.Add(new LabeledFile(f)));
+        }
         public HierarchyHandler(List<LabeledFile> files) => Files = files;
         public void Sort() => Files.Sort();
         public override string ToString() => string.Join('\n', Files.Select(f=>f.Path));
@@ -52,6 +59,11 @@ namespace autoBuilder.Modules
                 result.AddRange(SetGroups(groups[i], ListModules<int>.WithoutIndex(groupsPerLevel,0)));
             }
             return result;
+        }
+        public IEnumerator GetEnumerator() => Files.GetEnumerator();
+        public void ForEach(Action<LabeledFile> action)
+        {
+            foreach (var file in Files) action(file);
         }
     }
 }
