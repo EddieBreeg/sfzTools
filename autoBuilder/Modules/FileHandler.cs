@@ -52,11 +52,11 @@ namespace autoBuilder.Modules
                 return files;
             }
             var result = new List<LabeledFile>();
-            var groups = ListModules<LabeledFile>.SplitList(files, groupsPerLevel[0]);
+            var groups = files.Split(groupsPerLevel[0]);
             for(int i=0;i<groups.Count;i++)
             {
                 groups[i].ForEach(f => f.HierachyLabels.Add(i));
-                result.AddRange(SetGroups(groups[i], ListModules<int>.WithoutIndex(groupsPerLevel,0)));
+                result.AddRange(SetGroups(groups[i], groupsPerLevel.WithoutIndex(0)));
             }
             return result;
         }

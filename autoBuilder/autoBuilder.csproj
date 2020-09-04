@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EddieBreeg.CoreExtensions" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\autoRename\autoRename.csproj" />
     <ProjectReference Include="..\filenameParser\filenameParser.csproj" />
   </ItemGroup>

@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using filenameParser;
-using filenameParser.Modules;
 using autoRename.Modules;
 
 namespace autoRename

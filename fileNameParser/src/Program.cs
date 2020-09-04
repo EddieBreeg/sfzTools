@@ -2,7 +2,6 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using filenameParser.Modules;
 
 namespace filenameParser
 {
@@ -92,9 +91,6 @@ namespace filenameParser
             map.SortRegions();
 
 #if (DEBUG)
-            //Console.WriteLine(string.Join(", ", map.Articulations));
-            //Console.WriteLine(string.Join(", ", map.DynamicLevels));
-            //Console.WriteLine(string.Join(", ", map.RoundRobins));
             Console.WriteLine(string.Join(", ", map.Groups));
             Console.WriteLine(string.Join('\n', map.Groups[0].Regions));
 #endif

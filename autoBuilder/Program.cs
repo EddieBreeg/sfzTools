@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using filenameParser;
-using filenameParser.Modules;
 using autoRename.Modules;
 using autoBuilder.Modules;
 using System.Linq;
-using System.Runtime.InteropServices;
 
 namespace autoBuilder
 {
@@ -65,12 +63,12 @@ namespace autoBuilder
                     $"RR{i} name: ", $"RR{i}"));
             }
             var totalGroupCount = rrCount * articulationsCount * dynLevelsCount;
-            int noteCountPerGroup = InputHandler.NumberInput("Number of notes per group: ");
+            int noteCountPerGroup = InputHandler.IntInput("Number of notes per group: ");
 
             int firstNote = map.MidiNotes.ToList().IndexOf(
                 InputHandler.LineInput("First note in each group (default is C0): ", map.MidiNotes, "C0"));
 
-            int interval = InputHandler.NumberInput("Interval between notes (in semitones, default is 5): ", 5);
+            int interval = InputHandler.IntInput("Interval between notes (in semitones, default is 5): ", 5);
             char stretchMode = 
                 InputHandler.KeyInput("Stretch mode (default is 1): ", new char[] { '0', '1', '2' }, '1');
 
@@ -80,7 +78,7 @@ namespace autoBuilder
                                 "2 = round robin\n" +
                                 "3 = note name");
             Console.WriteLine("Please read the documentation for full details! ");
-            var lut = InputHandler.ListInput("Hierarchy (default is \"0 1 2 3\"): ",
+            var lut = InputHandler.IntListInput("Hierarchy (default is \"0 1 2 3\"): ",
                 new List<int>() { 0, 1, 2, 3 }, 
                 l => l.IsPermutation() && l.Count == 4);
 
@@ -98,15 +96,13 @@ namespace autoBuilder
                         map.Groups.Add(group);
                     }
             var files = new HierarchyHandler(filesList.GetRange(0, totalGroupCount * noteCountPerGroup));
-            files.GroupsPerLevel = 
-                ListModules<int>.Permute(new List<int>() { articulationsCount, dynLevelsCount, rrCount, noteCountPerGroup },
-                lut);
-            //files.GroupsPerLevel.ForEach(x => Console.WriteLine(x));
+            var groupCounts = new List<int>() { articulationsCount, dynLevelsCount, rrCount, noteCountPerGroup };
+            files.GroupsPerLevel =groupCounts.Permute(lut);
             files.LabelFiles();
             foreach(LabeledFile file in files)
             {
                 file.HierachyLabels.RemoveAt(4);
-                file.HierachyLabels = ListModules<int>.Permute(file.HierachyLabels, lut.FlipPermutation());
+                file.HierachyLabels = file.HierachyLabels.Permute( lut.FlipPermutation());
             }
             files.Sort();
             foreach(LabeledFile file in files)
