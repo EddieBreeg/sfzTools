@@ -174,6 +174,62 @@ default_path=Example/
 
 As you can see the program doesn't generate velocity values, or round robins... those are things you still have to do yourself unfortunately. But still, hopefully this little program should make you gain a ton of time.
 
+## autoBuilder
+
+OK fine you have program to automatically rename your sample, and you have another one to 
+map them... but what if you could do both at the same time? That's right there is another tool
+for that too! **autoBuilder** is essentially a fusion of the two other tools, and even more. Let's get right in, by taking a new example.
+
+Let's say we have exported all our samples to a folder, as follows:
+```
+Example/
+|	file0.wav
+|	file1.wav
+|	file2.wav
+|	file3.wav
+|	file4.wav
+|	file5.wav
+|	file6.wav
+|	file7.wav
+```
+Here we have an instrument with 1 articulation, 2 dynamic layers, 2 round robins, and 2 notes per group.
+
+Those files hopefully are sorted using a specific hierarchy, for example:
+```
+└───articulation
+    └───dynamicLevel
+        └───round robin
+                note
+```
+It's important that you know what hierarchy you have used, we'll get back to that in a minute.
+Anyway, run autoBuilder. As usual, it will ask for the path and the file extension to look at (default is "wav").
+
+Then, it will ask you for how many articulations you want to create, and what the names for each for each should be.
+Note that the default number is 1, and that there is also a default name for each articulation (which will be prompted to you).
+The same pieces of information will be asked for the dynamic levels and the round robins respectively. 
+
+Next you will be asked for how many different notes there are in each group. It corresponds to how many separate notes you have recorded when you sampled the instrument. In our example, it's two.
+
+Then, indicate what the first note is (default is C0), and what interval separates each note from the next (default is 5 semitones). Note that the program assumes those values are the same for every group!
+
+Then comes the stretch mode:
+- 0 = no strech mode, each sample will only be assigned to its root note
+- 1 = each sample will be stretched to the note below
+- 2 = each sample will be stretched to the note above
+
+Finally, the hierarchy! Remember when I told you it was important? There it comes! The program needs to know in what order you have sorted your files. In our example we have use the following hierarchy: `articulation>dynamic level>round robin>note`
+Use the corresponding value for each part of the hierarchy:
+- 0 = articulation
+- 1 = dynamic level
+- 2 = round robin
+- 3 = note name
+
+Enter the values separated by a space. In our case it would be: "0 1 2 3" (which is the default).
+But if your hierarchy is `articulation>dynamic level>note>round robin` for example, then you should enter "0 1 3 2"
+
+And that's it! The program will rename the samples, and generate a .SFZ file with everything mapped according to the pieces of information you have provided. It create default velocity values as well as round robin sequences.
+Note that the program computes how many samples there are based on the number of notes per group (which is why this information was needed) and the total number of groups. If the program finds out there are some remaining samples in the folder, it will add them into a separate group automatically. This can be useful for things like release triggers.
+
 ### Nota bene: how to run these programs on your operating system?
 
 #### Windows
