@@ -6,7 +6,8 @@ bin/
 *.cmd
 Dist/
 *.user
-Example/
+Example
 *.ps1
-/HierarchyTest
+HierarchyTest
 testArgs.txt
+.editorconfig

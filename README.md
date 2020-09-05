@@ -8,6 +8,8 @@ As much as it is good for being free, it is not exactly the easiest format to ha
 The idea behind sfzTools is to provide you with programs which automate the sometimes painful process that is
 writing an sfz file. Those tools are available on Windows, Linux and Mac, please refer to the [Releases](https://github.com/EddieBreeg/sfzTools/releases) page to download the file containing the executables. And of course you also get the source code if you want to modify the programs according to your needs or even contribute (which I would of course recommend assuming you know a bit of C# programming)
 
+**Development dependencies**: EddieBreeg.CoreExtensions
+
 ## autoRename
 
 Let's assume that you have recorded samples from an instrument, a piano for example. You would have several velocity layers, round robins, release triggers... Which represents quite a lot of files. Usually you'd want to name those files accordingly but quite frankly, it is not a fun task, nor is it really interesting. **autoRename** allows you to rename all those files automatically. Let's assume that you have a well organized folders with your audio files sorted in different subdirectories, for example:
