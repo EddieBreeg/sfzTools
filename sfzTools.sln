@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "filenameParser", "filenameParser\filenameParser.csproj", "{FDBEB561-DE69-40C8-9F63-CE9F530E2A89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "filenameParser", "src\filenameParser\filenameParser.csproj", "{FDBEB561-DE69-40C8-9F63-CE9F530E2A89}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "autoRename", "autoRename\autoRename.csproj", "{5A751B32-9EB2-4878-BC07-8B3A807DD5DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "autoRename", "src\autoRename\autoRename.csproj", "{5A751B32-9EB2-4878-BC07-8B3A807DD5DB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{386B793C-FD98-4C5E-B51C-9496CD16BE22}"
 	ProjectSection(SolutionItems) = preProject
@@ -14,9 +14,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "autoBuilder", "autoBuilder\autoBuilder.csproj", "{0EEC2182-3562-454F-8861-6BD11AC7C889}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "autoBuilder", "src\autoBuilder\autoBuilder.csproj", "{0EEC2182-3562-454F-8861-6BD11AC7C889}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HierarchyTest", "HierarchyTest\HierarchyTest.csproj", "{9D6FA4C0-FC8D-41FA-94D4-7368546356FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HierarchyTest", "src\HierarchyTest\HierarchyTest.csproj", "{9D6FA4C0-FC8D-41FA-94D4-7368546356FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
